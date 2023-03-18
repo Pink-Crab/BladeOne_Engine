@@ -81,7 +81,6 @@ $app = ( new App_Factory('path/to/project/root') )
    // Rest of setup
    ->boot();
 ```
-> You can have as many of these config classes as you want, allowing you to break up any custom directives, globals values and aliases etc.
 
 ## Included Components
 

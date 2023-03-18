@@ -7,16 +7,16 @@ A BladeOne Provider for the PinkCrab Renderable Interface.
 [![Total Downloads](http://poser.pugx.org/pinkcrab/bladeone-engine/downloads)](https://packagist.org/packages/pinkcrab/bladeone-engine)
 [![License](http://poser.pugx.org/pinkcrab/bladeone-engine/license)](https://packagist.org/packages/pinkcrab/bladeone-engine)
 [![PHP Version Require](http://poser.pugx.org/pinkcrab/bladeone-engine/require/php)](https://packagist.org/packages/pinkcrab/bladeone-engine)
-![GitHub contributors](https://img.shields.io/github/contributors/Pink-Crab/PBladeOne_Engine?label=Contributors)
-![GitHub issues](https://img.shields.io/github/issues-raw/Pink-Crab/PBladeOne_Engine)
+![GitHub contributors](https://img.shields.io/github/contributors/Pink-Crab/BladeOne_Engine?label=Contributors)
+![GitHub issues](https://img.shields.io/github/issues-raw/Pink-Crab/BladeOne_Engine)
 
-[![WP5.9 [PHP7.4-8.1] Tests](https://github.com/Pink-Crab/PBladeOne_Engine/actions/workflows/WP_5_9.yaml/badge.svg)](https://github.com/Pink-Crab/PBladeOne_Engine/actions/workflows/WP_5_9.yaml)
-[![WP6.0 [PHP7.4-8.1] Tests](https://github.com/Pink-Crab/PBladeOne_Engine/actions/workflows/WP_6_0.yaml/badge.svg)](https://github.com/Pink-Crab/PBladeOne_Engine/actions/workflows/WP_6_0.yaml)
-[![WP6.1 [PHP7.4-8.1] Tests](https://github.com/Pink-Crab/PBladeOne_Engine/actions/workflows/WP_6_1.yaml/badge.svg)](https://github.com/Pink-Crab/PBladeOne_Engine/actions/workflows/WP_6_1.yaml)
+[![WP5.9 [PHP7.4-8.1] Tests](https://github.com/Pink-Crab/BladeOne_Engine/actions/workflows/WP_5_9.yaml/badge.svg)](https://github.com/Pink-Crab/BladeOne_Engine/actions/workflows/WP_5_9.yaml)
+[![WP6.0 [PHP7.4-8.1] Tests](https://github.com/Pink-Crab/BladeOne_Engine/actions/workflows/WP_6_0.yaml/badge.svg)](https://github.com/Pink-Crab/BladeOne_Engine/actions/workflows/WP_6_0.yaml)
+[![WP6.1 [PHP7.4-8.1] Tests](https://github.com/Pink-Crab/BladeOne_Engine/actions/workflows/WP_6_1.yaml/badge.svg)](https://github.com/Pink-Crab/BladeOne_Engine/actions/workflows/WP_6_1.yaml)
 
-[![codecov](https://codecov.io/gh/Pink-Crab/Perique-BladeOne-Provider/branch/master/graph/badge.svg?token=F7W4S9O5IR)](https://codecov.io/gh/Pink-Crab/Perique-BladeOne-Provider)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Pink-Crab/Perique-BladeOne-Provider/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Pink-Crab/Perique-BladeOne-Provider/?branch=master)
-[![Maintainability](https://api.codeclimate.com/v1/badges/516590e7548eadeeaa8a/maintainability)](https://codeclimate.com/github/Pink-Crab/Perique-BladeOne-Provider/maintainability)
+[![codecov](https://codecov.io/gh/Pink-Crab/Perique-BladeOne_Engine/branch/master/graph/badge.svg?token=F7W4S9O5IR)](https://codecov.io/gh/Pink-Crab/Perique-BladeOne_Engine)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Pink-Crab/BladeOne_Engine/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Pink-Crab/BladeOne_Engine/?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/9d4a3c4c0a3e97b8dc34/maintainability)](https://codeclimate.com/github/Pink-Crab/BladeOne_Engine/maintainability)
 
 
 > Supports and tested with the PinkCrab Perique Framework versions 1.4.*
@@ -28,71 +28,62 @@ The BladeOne implementation of the Renderable interface, allows the use of Blade
 ## Setup ##
 
 ````bash 
-$ composer require pinkcrab/bladeone-provider
+$ composer require pinkcrab/bladeone-engine
 ````
 
-The simplest way to enable BladeOne is to use the `BladeOne_Bootstrap` helper class, this will configure BladeOne fully for use as the `Renderable` implementation. To use this just include the following before Perique is setup in your plugin.php file for plugins or functions.php for themes.
+Out of the box, you can just include the BladeOne module when you are booting Perique and you will have full access to the BladeOne engine. 
 
 ```php
-/**
- * Bootstrap Blade into Perique
- * 
- * @param string|array                             $views_path   The Path or paths used for the template files.
- * @param string                                   $cache_path   The path where all compiled/cached template files.
- * @param int|null                                 $blade_mode   The mode to start blade one using ( )
- * @param class_string | PinkCrab_BladeOne::class  $blade_class  The implementation of BladeOne to use
- */
-BladeOne_Bootstrap::use( $views_path, $cache_path, $blade_mode, $blade_class );
-
 // Bootstrap for Perique follows as normal.. 
-$app = ( new App_Factory() )->with_wp_dice( true )
-	->.....
+$app = ( new App_Factory('path/to/project/root') )
+   ->default_config()
+   ->module(BladeOne::class)
+   // Rest of setup
+   ->boot();
 ```
-> **\$views_path** :: This can be a string or an array of strings. If an array is passed, the first path that exists will be used. If not passed, the path defined in Perique will be used.  
+By default the following are assumed
+* `path/to/project/root/views` as the view path
+* `path/wp-content/uploads/blade-cache` as the cache path
+* `MODE_AUTO`
 
-> **\$cache_path** :: This should be a string path to the cache directory. If not passed, the path will be set as the `WP_CONTENT_DIR` . 'uploads/compiled/blade'  
 
-> **\$blade_mode** :: For more details on the options please [see official docs](https://github.com/EFTEC/BladeOne/blob/d3e1efa1c6f776aa87fe47164d77e7ea67fc196f/lib/BladeOne.php#L208 )   
+## Configuring BladeOne ##
 
-> **\$blade_class** :: This should be a the class name or instance of a class that extends `PinkCrab_BladeOne::class` this allows for the creation of custom components and extending BladeOne in general. For more details please [see official docs](https://github.com/EFTEC/BladeOne/wiki/Extending-the-class) Passing nothing or an invalid type will just use the default PinkCrab_BladeOne.
+As with all other modules, BladeOne can be configured by passing a `\Closure` as the 2nd argument to the `module()` method. 
 
-> If the cache directory doesn't exist, BladeOne will create it for you. It is however best to do this yourself to be sure of permissions etc.
+```php
+// Bootstrap for Perique follows as normal..
+$app = ( new App_Factory('path/to/project/root') )
+   ->default_config()
+   ->module(BladeOne::class, function( BladeOne_Engine $blade ) {
+      // Module config.
+      $blade->template_path('path/to/custom/views');
+      $blade->compiled_path('path/to/custom/cache');
+      $blade->mode( BladeOne::MODE_DEBUG );
+
+      // BladeOne_Engine config.
+      $blade->config(function(BladeOne_Engine $engine) {
+         // See all methods below.
+         $engine->set_compiled_extension('.php');
+         $engine->directive('test', fn($e) =>'test');
+         $provider->allow_pipe( false ); 
+      });
+
+      // Ensure you return the instance.
+      return $blade;
+   })
+   // Rest of setup
+   ->boot();
+```
+> You can have as many of these config classes as you want, allowing you to break up any custom directives, globals values and aliases etc.
 
 ## Included Components
 
 Out of the box PinkCrab_BladeOne comes with the BladeOneHTML trait added, giving access all HTML components.
 [BladeOneHTML Docs](https://github.com/EFTEC/BladeOneHtml)
 
-## Configuring BladeOne ##
-
-At its core BladeOne is a single class representation of Blade and most of its core functionality. To make configuration possible when being injected from DI Container we have a custom class you can extend and add to the registration array like any other Hookable class.
-
-```php
-class My_Blade_Config extends Abstract_BladeOne_Config {
-
-	// Services can be injected using DI as normal (with Perique)
-	protected $service;
-	public function __construct( Mock_Service $service ) {
-		$this->service = $service;
-	}
-
-	/**	
-	 * This is the only method that must be implemented
-	 * @param BladeOne_Provider $provider The instance of BladeOne being used.
-	 */
-	public function config( BladeOne_Provider $provider ): void {
-		// Use this method to configure Blade 
-		// Details of methods can be found below.		
-		$provider->set_compiled_extension( $this->service->get_cache_file_extension() );
-		$provider->directive( 'test', [ $this->service, 'some_method' ] );
-		$provider->allow_pipe( false ); // Pipe is enabled by default, unlike standard BladeOne
-	}
-}
-```
-> You can have as many of these config classes as you want, allowing you to break up any custom directives, globals values and aliases etc.
-
 ## Public Methods ##
-The BladeOne_Provider class has a number of methods which can be used to configure the underlying BladeOne implementation. This can be done using the `config()` method as part of the Config class above.
+The BladeOne_Engine class has a number of methods which can be used to configure the underlying BladeOne implementation. This can be done using the `config()` method as part of the [module definition](#configuring-bladeone).
 
 ---
 
@@ -257,28 +248,6 @@ $provider->share('GLOBAL_foo', [$this->injected_dep, 'method']);
 
 ---
 
-### **set_mode** ###
-```php
-/**
- * Set the compile mode
- *
- * @param int $mode 
- * 	Constants
- *	BladeOne::MODE_AUTO, 
- *	BladeOne::MODE_DEBUG, 
- *	BladeOne::MODE_FAST, 
- *	BladeOne::MODE_SLOW
- * @return self
- */
-	public function set_mode( int $mode ): self{}
-```
-Allows for the setting of a custom rendering mode. used MODE_AUTO by default.
-```php
-$provider->set_mode(BladeOne::MODE_AUTO);
-```
-
----
-
 ### **set_file_extension** ###
 ```php
 /**
@@ -335,13 +304,13 @@ $provider->set_esc_function('esc_attr');
 
 ## Magic Call Methods ##
 
-The BladeOne class has a large selection of Static and regular methods, these can all be accessed from BladeOne_Provider. These can be called as follows.
+The BladeOne class has a large selection of Static and regular methods, these can all be accessed from BladeOne_Engine. These can be called as follows.
 ```php
 // None static
 $this->view->engine()->some_method($data);
 
 // As static 
-BladeOne_Provider::some_method($data);
+BladeOne_Engine::some_method($data);
 ```
 > For the complete list of methods, please visit https://github.com/EFTEC/BladeOne/wiki/Methods-of-the-class
 

@@ -57,18 +57,21 @@ As with all other modules, BladeOne can be configured by passing a `\Closure` as
 // Bootstrap for Perique follows as normal..
 $app = ( new App_Factory('path/to/project/root') )
    ->default_config()
-   ->module(BladeOne::class, function( BladeOne_Engine $blade ) {
+   ->module(BladeOne::class, function( BladeOne $blade ) {
       // Module config.
       $blade
-	  	->template_path('path/to/custom/views')
-	  	->compiled_path('path/to/custom/cache'); // Fluent API for chaining.
+         ->template_path('path/to/custom/views')
+         ->compiled_path('path/to/custom/cache'); // Fluent API for chaining.
+      
       $blade->mode( BladeOne::MODE_DEBUG );
 
       // BladeOne_Engine config.
-      $blade->config(function(BladeOne_Engine $engine) {
+      $blade->config( function( BladeOne_Engine $engine  {
          // See all methods below.
-         $engine->set_compiled_extension('.php');
-         $engine->directive('test', fn($e) =>'test');
+         $engine
+            ->set_compiled_extension('.php')
+            ->directive('test', fn($e) =>'test'); // Fluent API for chaining.
+         
          $engine->allow_pipe( false ); 
       });
 
@@ -85,7 +88,77 @@ $app = ( new App_Factory('path/to/project/root') )
 Out of the box PinkCrab_BladeOne comes with the BladeOneHTML trait added, giving access all HTML components.
 [BladeOneHTML Docs](https://github.com/EFTEC/BladeOneHtml)
 
-## Public Methods ##
+## Public Methods For BladeOne##
+The BladeOne Module has the following methods which can be used to configure the base BladeOne Module. 
+
+> PLEASE ENSURE YOU RETURN BACK THE INSTANCE OF THE MODULE WHEN USING THE CONFIGURATION CLOSURE.
+
+---
+
+### **template_path** ###
+```php
+/**
+ * Sets the template path.
+ *
+ * @param string $path
+ * @return self
+ */
+public function template_path( string $path ): self{}
+```
+
+Sets the template path. This is the path where the views are stored.
+
+---
+
+### **compiled_path** ###
+```php
+/**
+ * Sets the compiled path.
+ *
+ * @param string $path
+ * @return self
+ */
+public function compiled_path( string $path ): self{}
+```
+
+Sets the compiled path. This is the path where the compiled views are stored.
+
+---
+
+### **mode** ###
+```php
+/**
+ * Sets the mode.
+ *
+ * @param int $mode
+ * @return self
+ */
+public function mode( int $mode ): self{}
+```
+
+Sets the mode. This can be one of the following:
+* `BladeOne::MODE_DEBUG` - This will compile the template every time it is called.
+* `BladeOne::MODE_AUTO` - This will compile the template if it does not exist, or if the template has been modified since the last compile.
+* `BladeOne::MODE_SLOW` - This will compile the template if it does not exist.
+* `BladeOne::MODE_FAST` - This will compile the template if it does not exist, or if the template has been modified since the last compile, and the template is older than 1 hour.
+  
+---
+
+### **config** ###
+```php
+/**
+ * Sets the config.
+ *
+ * @param \Closure(BladeOne_Engine $engine) $config
+ * @return self
+ */
+public function config( \Closure $config ): self{}
+```
+
+Sets the config. This is a closure which is passed the BladeOne_Engine instance, allowing you to configure the underlying BladeOne implementation.
+
+
+## Public Methods For BladeOne_Engine ##
 The BladeOne_Engine class has a number of methods which can be used to configure the underlying BladeOne implementation. This can be done using the `config()` method as part of the [module definition](#configuring-bladeone).
 
 ---

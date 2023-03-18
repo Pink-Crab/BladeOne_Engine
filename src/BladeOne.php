@@ -102,8 +102,8 @@ class BladeOne implements Module {
 	public function pre_boot( App_Config $config, Hook_Loader $loader, DI_Container $di_container ): void {
 
 		$wp_upload_dir = wp_upload_dir();
-		$compiled_path = $this->compiled_path ?? sprintf( '%1$s%2$sblade-cache', $wp_upload_dir['basedir'], \DIRECTORY_SEPARATOR );
-		$instance = new PinkCrab_BladeOne(
+		$compiled_path = $this->compiled_path ?? sprintf( '%1$s%2$sblade-cache', $wp_upload_dir['basedir'], \DIRECTORY_SEPARATOR ); // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInImplementedInterfaceBeforeLastUsed
+		$instance      = new PinkCrab_BladeOne(
 			$this->template_path ?? $config->path( 'view' ),
 			$compiled_path,
 			$this->mode
@@ -153,7 +153,7 @@ class BladeOne implements Module {
 	 * @pram DI_Container $di_container
 	 * @return void
 	 */
-	public function pre_register( App_Config $config, Hook_Loader $loader, DI_Container $di_container ): void {
+	public function pre_register( App_Config $config, Hook_Loader $loader, DI_Container $di_container ): void { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInImplementedInterfaceBeforeLastUsed
 
 		// Pass the config to the provider, if set.
 		if ( ! is_null( $this->config ) ) {
@@ -170,7 +170,7 @@ class BladeOne implements Module {
 
 
 	/** @inheritDoc */
-	public function post_register( App_Config $config, Hook_Loader $loader, DI_Container $di_container ): void {}
+	public function post_register( App_Config $config, Hook_Loader $loader, DI_Container $di_container ): void {} // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInImplementedInterfaceBeforeLastUsed
 
 	/** @inheritDoc */
 	public function get_middleware(): ?string {

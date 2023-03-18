@@ -1,3 +1,6 @@
+# Release Candidate 1.0.0-RC1
+---
+
 # BladeOne_Provider
 A BladeOne Provider for the PinkCrab Renderable Interface.
 
@@ -370,5 +373,5 @@ http://www.opensource.org/licenses/mit-license.html
 * For support of all versions befor Perique V2, please use the [BladeOne_Provider](https://github.com/Pink-Crab/Perique-BladeOne-Provider)
 
 ## Change Log ##
-* 0.1.0 - Migrated over from the Perique V2 Prep branch of BladeOne_Provider.
+* 1.0.0 - Migrated over from the Perique V2 Prep branch of BladeOne_Provider.
 

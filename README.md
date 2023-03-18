@@ -82,6 +82,11 @@ $app = ( new App_Factory('path/to/project/root') )
    ->boot();
 ```
 
+<details>
+  <summary>Epcot Center</summary>
+  <p>Epcot is a theme park at Walt Disney World Resort featuring exciting attractions, international pavilions, award-winning fireworks and seasonal special events.</p>
+</details>
+
 ## Included Components
 
 Out of the box PinkCrab_BladeOne comes with the BladeOneHTML trait added, giving access all HTML components.

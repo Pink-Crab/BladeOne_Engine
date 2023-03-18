@@ -34,10 +34,10 @@ Out of the box, you can just include the BladeOne module when you are booting Pe
 ```php
 // Bootstrap for Perique follows as normal.. 
 $app = ( new App_Factory('path/to/project/root') )
-	->default_config()
-	->module(BladeOne::class)
-	// Rest of setup
-	->boot();
+   ->default_config()
+   ->module(BladeOne::class)
+   // Rest of setup
+   ->boot();
 ```
 By default the following are assumed
 * `path/to/project/root/views` as the view path
@@ -63,10 +63,8 @@ $app = ( new App_Factory('path/to/project/root') )
       $blade->config(function(BladeOne_Engine $engine) {
          // See all methods below.
          $engine->set_compiled_extension('.php');
-         $engine->directive('test', function() {
-            return 'test';
-         });
-         $provider->allow_pipe( false ); // Pipe is enabled by default, unlike standard BladeOne
+         $engine->directive('test', fn() =>'test');
+         $provider->allow_pipe( false ); 
       });
 
       // Ensure you return the instance.

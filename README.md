@@ -101,6 +101,30 @@ $app = ( new App_Factory('path/to/project/root') )
    )
 ->boot();
 ```
+
+You can also hold the config in its own class and use that.
+
+```php
+/** Some Class */
+class BladeOneConfig {
+   public function __invoke( BladeOne $blade ): BladeOne {
+      return $blade
+         ->template_path('path/to/custom/views')
+         ->compiled_path('path/to/custom/cache')
+         ->mode( BladeOne::MODE_DEBUG )
+         ->config( fn( BladeOne_Engine $engine ) => $engine
+            ->set_compiled_extension('.php')
+            ->directive('test', fn($e) =>'test')
+            ->allow_pipe( false )
+         );
+   }
+}
+
+$app = ( new App_Factory('path/to/project/root') )
+   ->default_config()
+   ->module(BladeOne::class, new BladeOneConfig() )
+   ->boot();
+```
 </details>
 
 ## Included Components

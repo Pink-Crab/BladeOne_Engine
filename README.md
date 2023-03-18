@@ -81,7 +81,7 @@ Out of the box PinkCrab_BladeOne comes with the BladeOneHTML trait added, giving
 [BladeOneHTML Docs](https://github.com/EFTEC/BladeOneHtml)
 
 ## Public Methods ##
-The BladeOne_Engine class has a number of methods which can be used to configure the underlying BladeOne implementation. This can be done using the `config()` method as part of the Config class above.
+The BladeOne_Engine class has a number of methods which can be used to configure the underlying BladeOne implementation. This can be done using the `config()` method as part of the [module definition](#configuring-bladeone).
 
 ---
 

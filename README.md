@@ -42,54 +42,48 @@ $app = ( new App_Factory('path/to/project/root') )
 By default the following are assumed
 * `path/to/project/root/views` as the view path
 * `path/wp-content/uploads/blade-cache` as the cache path
-* MODE_AUTO
-* Allow_Pipe()
+* `MODE_AUTO`
 
-> **\$views_path** :: This can be a string or an array of strings. If an array is passed, the first path that exists will be used. If not passed, the path defined in Perique will be used.  
 
-> **\$cache_path** :: This should be a string path to the cache directory. If not passed, the path will be set as the `WP_CONTENT_DIR` . 'uploads/compiled/blade'  
+## Configuring BladeOne ##
 
-> **\$blade_mode** :: For more details on the options please [see official docs](https://github.com/EFTEC/BladeOne/blob/d3e1efa1c6f776aa87fe47164d77e7ea67fc196f/lib/BladeOne.php#L208 )   
+As with all other modules, BladeOne can be configured by passing a `\Closure` as the 2nd argument to the `module()` method. 
 
-> **\$blade_class** :: This should be a the class name or instance of a class that extends `PinkCrab_BladeOne::class` this allows for the creation of custom components and extending BladeOne in general. For more details please [see official docs](https://github.com/EFTEC/BladeOne/wiki/Extending-the-class) Passing nothing or an invalid type will just use the default PinkCrab_BladeOne.
+```php
+// Bootstrap for Perique follows as normal..
+$app = ( new App_Factory('path/to/project/root') )
+	->default_config()
+	->module(BladeOne::class, function( BladeOne_Engine $blade ) {
+		// Module config.
+		$blade->template_path('path/to/custom/views');
+		$blade->compiled_path('path/to/custom/cache');
+		$blade->mode( BladeOne::MODE_DEBUG );
 
-> If the cache directory doesn't exist, BladeOne will create it for you. It is however best to do this yourself to be sure of permissions etc.
+		// BladeOne_Engine config.
+		$blade->config(function(BladeOne_Engine $engine) {
+			// See all methods below.
+			$engine->set_compiled_extension('.php');
+			$engine->directive('test', function() {
+				return 'test';
+			});
+			$provider->allow_pipe( false ); // Pipe is enabled by default, unlike standard BladeOne
+		});
+
+		// Ensure you return the instance.
+		return $blade;
+	})
+	// Rest of setup
+	->boot();
+```
+> You can have as many of these config classes as you want, allowing you to break up any custom directives, globals values and aliases etc.
 
 ## Included Components
 
 Out of the box PinkCrab_BladeOne comes with the BladeOneHTML trait added, giving access all HTML components.
 [BladeOneHTML Docs](https://github.com/EFTEC/BladeOneHtml)
 
-## Configuring BladeOne ##
-
-At its core BladeOne is a single class representation of Blade and most of its core functionality. To make configuration possible when being injected from DI Container we have a custom class you can extend and add to the registration array like any other Hookable class.
-
-```php
-class My_Blade_Config extends Abstract_BladeOne_Config {
-
-	// Services can be injected using DI as normal (with Perique)
-	protected $service;
-	public function __construct( Mock_Service $service ) {
-		$this->service = $service;
-	}
-
-	/**	
-	 * This is the only method that must be implemented
-	 * @param BladeOne_Provider $provider The instance of BladeOne being used.
-	 */
-	public function config( BladeOne_Provider $provider ): void {
-		// Use this method to configure Blade 
-		// Details of methods can be found below.		
-		$provider->set_compiled_extension( $this->service->get_cache_file_extension() );
-		$provider->directive( 'test', [ $this->service, 'some_method' ] );
-		$provider->allow_pipe( false ); // Pipe is enabled by default, unlike standard BladeOne
-	}
-}
-```
-> You can have as many of these config classes as you want, allowing you to break up any custom directives, globals values and aliases etc.
-
 ## Public Methods ##
-The BladeOne_Provider class has a number of methods which can be used to configure the underlying BladeOne implementation. This can be done using the `config()` method as part of the Config class above.
+The BladeOne_Engine class has a number of methods which can be used to configure the underlying BladeOne implementation. This can be done using the `config()` method as part of the Config class above.
 
 ---
 
@@ -254,28 +248,6 @@ $provider->share('GLOBAL_foo', [$this->injected_dep, 'method']);
 
 ---
 
-### **set_mode** ###
-```php
-/**
- * Set the compile mode
- *
- * @param int $mode 
- * 	Constants
- *	BladeOne::MODE_AUTO, 
- *	BladeOne::MODE_DEBUG, 
- *	BladeOne::MODE_FAST, 
- *	BladeOne::MODE_SLOW
- * @return self
- */
-	public function set_mode( int $mode ): self{}
-```
-Allows for the setting of a custom rendering mode. used MODE_AUTO by default.
-```php
-$provider->set_mode(BladeOne::MODE_AUTO);
-```
-
----
-
 ### **set_file_extension** ###
 ```php
 /**
@@ -332,13 +304,13 @@ $provider->set_esc_function('esc_attr');
 
 ## Magic Call Methods ##
 
-The BladeOne class has a large selection of Static and regular methods, these can all be accessed from BladeOne_Provider. These can be called as follows.
+The BladeOne class has a large selection of Static and regular methods, these can all be accessed from BladeOne_Engine. These can be called as follows.
 ```php
 // None static
 $this->view->engine()->some_method($data);
 
 // As static 
-BladeOne_Provider::some_method($data);
+BladeOne_Engine::some_method($data);
 ```
 > For the complete list of methods, please visit https://github.com/EFTEC/BladeOne/wiki/Methods-of-the-class
 

@@ -21,7 +21,7 @@ A BladeOne Provider for the PinkCrab Renderable Interface.
 [![Maintainability](https://api.codeclimate.com/v1/badges/9d4a3c4c0a3e97b8dc34/maintainability)](https://codeclimate.com/github/Pink-Crab/BladeOne_Engine/maintainability)
 
 
-> Supports and tested with the PinkCrab Perique Framework versions 1.4.*
+> Supports and tested with the PinkCrab Perique Framework versions 2.0.*
 
 
 ## Why? ##

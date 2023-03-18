@@ -158,7 +158,7 @@ public function config( \Closure $config ): self{}
 Sets the config. This is a closure which is passed the BladeOne_Engine instance, allowing you to configure the underlying BladeOne implementation.
 
 
-## Public Methods For BladeOne_Engine##
+## Public Methods For BladeOne_Engine ##
 The BladeOne_Engine class has a number of methods which can be used to configure the underlying BladeOne implementation. This can be done using the `config()` method as part of the [module definition](#configuring-bladeone).
 
 ---

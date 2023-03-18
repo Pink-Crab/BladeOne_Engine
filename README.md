@@ -1,4 +1,6 @@
-# WIP DO NOT USE ATM
+
+# Release Candidate 1.0.0-RC1
+---
 
 # BladeOne_Provider
 A BladeOne Provider for the PinkCrab Renderable Interface.
@@ -14,12 +16,12 @@ A BladeOne Provider for the PinkCrab Renderable Interface.
 [![WP6.0 [PHP7.4-8.1] Tests](https://github.com/Pink-Crab/BladeOne_Engine/actions/workflows/WP_6_0.yaml/badge.svg)](https://github.com/Pink-Crab/BladeOne_Engine/actions/workflows/WP_6_0.yaml)
 [![WP6.1 [PHP7.4-8.1] Tests](https://github.com/Pink-Crab/BladeOne_Engine/actions/workflows/WP_6_1.yaml/badge.svg)](https://github.com/Pink-Crab/BladeOne_Engine/actions/workflows/WP_6_1.yaml)
 
-[![codecov](https://codecov.io/gh/Pink-Crab/Perique-BladeOne_Engine/branch/master/graph/badge.svg?token=F7W4S9O5IR)](https://codecov.io/gh/Pink-Crab/Perique-BladeOne_Engine)
+[![codecov](https://codecov.io/gh/Pink-Crab/BladeOne_Engine/branch/master/graph/badge.svg?token=jYyPg3FOSN)](https://codecov.io/gh/Pink-Crab/BladeOne_Engine)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Pink-Crab/BladeOne_Engine/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Pink-Crab/BladeOne_Engine/?branch=master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/9d4a3c4c0a3e97b8dc34/maintainability)](https://codeclimate.com/github/Pink-Crab/BladeOne_Engine/maintainability)
 
 
-> Supports and tested with the PinkCrab Perique Framework versions 1.4.*
+> Supports and tested with the PinkCrab Perique Framework versions 2.0.*
 
 
 ## Why? ##
@@ -372,5 +374,5 @@ http://www.opensource.org/licenses/mit-license.html
 * For support of all versions befor Perique V2, please use the [BladeOne_Provider](https://github.com/Pink-Crab/Perique-BladeOne-Provider)
 
 ## Change Log ##
-* 0.1.0 - Migrated over from the Perique V2 Prep branch of BladeOne_Provider.
+* 1.0.0 - Migrated over from the Perique V2 Prep branch of BladeOne_Provider.
 

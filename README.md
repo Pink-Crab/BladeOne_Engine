@@ -52,28 +52,28 @@ As with all other modules, BladeOne can be configured by passing a `\Closure` as
 ```php
 // Bootstrap for Perique follows as normal..
 $app = ( new App_Factory('path/to/project/root') )
-	->default_config()
-	->module(BladeOne::class, function( BladeOne_Engine $blade ) {
-		// Module config.
-		$blade->template_path('path/to/custom/views');
-		$blade->compiled_path('path/to/custom/cache');
-		$blade->mode( BladeOne::MODE_DEBUG );
+   ->default_config()
+   ->module(BladeOne::class, function( BladeOne_Engine $blade ) {
+      // Module config.
+      $blade->template_path('path/to/custom/views');
+      $blade->compiled_path('path/to/custom/cache');
+      $blade->mode( BladeOne::MODE_DEBUG );
 
-		// BladeOne_Engine config.
-		$blade->config(function(BladeOne_Engine $engine) {
-			// See all methods below.
-			$engine->set_compiled_extension('.php');
-			$engine->directive('test', function() {
-				return 'test';
-			});
-			$provider->allow_pipe( false ); // Pipe is enabled by default, unlike standard BladeOne
-		});
+      // BladeOne_Engine config.
+      $blade->config(function(BladeOne_Engine $engine) {
+         // See all methods below.
+         $engine->set_compiled_extension('.php');
+         $engine->directive('test', function() {
+            return 'test';
+         });
+         $provider->allow_pipe( false ); // Pipe is enabled by default, unlike standard BladeOne
+      });
 
-		// Ensure you return the instance.
-		return $blade;
-	})
-	// Rest of setup
-	->boot();
+      // Ensure you return the instance.
+      return $blade;
+   })
+   // Rest of setup
+   ->boot();
 ```
 > You can have as many of these config classes as you want, allowing you to break up any custom directives, globals values and aliases etc.
 

@@ -31,6 +31,7 @@ use PinkCrab\BladeOne\BladeOne_Engine;
 use PinkCrab\Perique\Application\Hooks;
 use PinkCrab\Perique\Interfaces\Module;
 use PinkCrab\BladeOne\PinkCrab_BladeOne;
+use PinkCrab\Perique\Services\View\View;
 use PinkCrab\Perique\Interfaces\Renderable;
 use PinkCrab\Perique\Application\App_Config;
 use PinkCrab\Perique\Interfaces\DI_Container;

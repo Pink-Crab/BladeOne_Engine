@@ -26,26 +26,25 @@ The BladeOne implementation of the Renderable interface, allows the use of Blade
 ## Setup ##
 
 ````bash 
-$ composer require pinkcrab/bladeone-provider
+$ composer require pinkcrab/bladeone-engine
 ````
 
-The simplest way to enable BladeOne is to use the `BladeOne_Bootstrap` helper class, this will configure BladeOne fully for use as the `Renderable` implementation. To use this just include the following before Perique is setup in your plugin.php file for plugins or functions.php for themes.
+Out of the box, you can just include the BladeOne module when you are booting Perique and you will have full access to the BladeOne engine. 
 
 ```php
-/**
- * Bootstrap Blade into Perique
- * 
- * @param string|array                             $views_path   The Path or paths used for the template files.
- * @param string                                   $cache_path   The path where all compiled/cached template files.
- * @param int|null                                 $blade_mode   The mode to start blade one using ( )
- * @param class_string | PinkCrab_BladeOne::class  $blade_class  The implementation of BladeOne to use
- */
-BladeOne_Bootstrap::use( $views_path, $cache_path, $blade_mode, $blade_class );
-
 // Bootstrap for Perique follows as normal.. 
-$app = ( new App_Factory() )->with_wp_dice( true )
-	->.....
+$app = ( new App_Factory('path/to/project/root') )
+	->default_config()
+	->module(BladeOne::class)
+	// Rest of setup
+	->boot();
 ```
+By default the following are assumed
+* `path/to/project/root/views` as the view path
+* `path/wp-content/uploads/blade-cache` as the cache path
+* MODE_AUTO
+* Allow_Pipe()
+
 > **\$views_path** :: This can be a string or an array of strings. If an array is passed, the first path that exists will be used. If not passed, the path defined in Perique will be used.  
 
 > **\$cache_path** :: This should be a string path to the cache directory. If not passed, the path will be set as the `WP_CONTENT_DIR` . 'uploads/compiled/blade'  

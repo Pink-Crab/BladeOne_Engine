@@ -99,7 +99,7 @@ class BladeOne implements Module {
 	 * @pram DI_Container $di_container
 	 * @return void
 	 */
-	public function pre_boot( App_Config $config, Hook_Loader $loader, DI_Container $di_container ): void {
+	public function pre_boot( App_Config $config, Hook_Loader $loader, DI_Container $di_container ): void { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInImplementedInterfaceBeforeLastUsed
 
 		$wp_upload_dir = wp_upload_dir();
 		$compiled_path = $this->compiled_path ?? sprintf( '%1$s%2$sblade-cache', $wp_upload_dir['basedir'], \DIRECTORY_SEPARATOR ); // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInImplementedInterfaceBeforeLastUsed

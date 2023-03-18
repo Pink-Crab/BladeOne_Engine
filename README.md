@@ -84,7 +84,7 @@ $app = ( new App_Factory('path/to/project/root') )
 
 <details>
   <summary>Compact BladeOne Config</summary>
-  <p>It is possible to do the Module config in a much more concise fashion</p>
+  <p>It is possible to do the Module config in a much more concise fashion, using the fluent API and PHP Arrow functions</p>
 
 ```php
 $app = ( new App_Factory('path/to/project/root') )

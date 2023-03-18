@@ -85,6 +85,7 @@ $app = ( new App_Factory('path/to/project/root') )
 <details>
   <summary>Compact</summary>
   <p>It is possible to do the Module config in a much more concise fashion</p>
+  
 ```php
 $app = ( new App_Factory('path/to/project/root') )
    ->default_config()

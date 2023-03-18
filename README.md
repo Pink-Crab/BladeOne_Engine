@@ -83,8 +83,23 @@ $app = ( new App_Factory('path/to/project/root') )
 ```
 
 <details>
-  <summary>Epcot Center</summary>
-  <p>Epcot is a theme park at Walt Disney World Resort featuring exciting attractions, international pavilions, award-winning fireworks and seasonal special events.</p>
+  <summary>Compact</summary>
+  <p>It is possible to do the Module config in a much more concise fashion</p>
+```php
+$app = ( new App_Factory('path/to/project/root') )
+   ->default_config()
+   ->module(BladeOne::class, fn( BladeOne $blade ) => $blade
+      ->template_path('path/to/custom/views')
+      ->compiled_path('path/to/custom/cache')
+      ->mode( BladeOne::MODE_DEBUG )
+      ->config( fn( BladeOne_Engine $engine ) => $engine
+         ->set_compiled_extension('.php')
+         ->directive('test', fn($e) =>'test')
+         ->allow_pipe( false )
+      )
+   )
+->boot();
+```
 </details>
 
 ## Included Components

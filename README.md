@@ -62,13 +62,16 @@ $app = ( new App_Factory('path/to/project/root') )
       $blade
          ->template_path('path/to/custom/views')
          ->compiled_path('path/to/custom/cache'); // Fluent API for chaining.
+      
       $blade->mode( BladeOne::MODE_DEBUG );
 
       // BladeOne_Engine config.
-      $blade->config(function(BladeOne_Engine $engine) {
+      $blade->config( function( BladeOne_Engine $engine  {
          // See all methods below.
-         $engine->set_compiled_extension('.php');
-         $engine->directive('test', fn($e) =>'test');
+         $engine
+            ->set_compiled_extension('.php')
+            ->directive('test', fn($e) =>'test'); // Fluent API for chaining.
+         
          $engine->allow_pipe( false ); 
       });
 

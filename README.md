@@ -1,16 +1,16 @@
 # BladeOne_Provider
 A BladeOne Provider for the PinkCrab Renderable Interface.
 
-[![Latest Stable Version](http://poser.pugx.org/pinkcrab/bladeone-provider/v)](https://packagist.org/packages/pinkcrab/bladeone-provider)
-[![Total Downloads](http://poser.pugx.org/pinkcrab/bladeone-provider/downloads)](https://packagist.org/packages/pinkcrab/bladeone-provider)
-[![License](http://poser.pugx.org/pinkcrab/bladeone-provider/license)](https://packagist.org/packages/pinkcrab/bladeone-provider)
-[![PHP Version Require](http://poser.pugx.org/pinkcrab/bladeone-provider/require/php)](https://packagist.org/packages/pinkcrab/bladeone-provider)
-![GitHub contributors](https://img.shields.io/github/contributors/Pink-Crab/Perique-BladeOne-Provider?label=Contributors)
-![GitHub issues](https://img.shields.io/github/issues-raw/Pink-Crab/Perique-BladeOne-Provider)
+[![Latest Stable Version](http://poser.pugx.org/pinkcrab/bladeone-engine/v)](https://packagist.org/packages/pinkcrab/bladeone-engine)
+[![Total Downloads](http://poser.pugx.org/pinkcrab/bladeone-engine/downloads)](https://packagist.org/packages/pinkcrab/bladeone-engine)
+[![License](http://poser.pugx.org/pinkcrab/bladeone-engine/license)](https://packagist.org/packages/pinkcrab/bladeone-engine)
+[![PHP Version Require](http://poser.pugx.org/pinkcrab/bladeone-engine/require/php)](https://packagist.org/packages/pinkcrab/bladeone-engine)
+![GitHub contributors](https://img.shields.io/github/contributors/Pink-Crab/PBladeOne_Engine?label=Contributors)
+![GitHub issues](https://img.shields.io/github/issues-raw/Pink-Crab/PBladeOne_Engine)
 
-[![WP5.9 [PHP7.2-8.1] Tests](https://github.com/Pink-Crab/Perique-BladeOne-Provider/actions/workflows/WP_5_9.yaml/badge.svg)](https://github.com/Pink-Crab/Perique-BladeOne-Provider/actions/workflows/WP_5_9.yaml)
-[![WP6.0 [PHP7.2-8.1] Tests](https://github.com/Pink-Crab/Perique-BladeOne-Provider/actions/workflows/WP_6_0.yaml/badge.svg)](https://github.com/Pink-Crab/Perique-BladeOne-Provider/actions/workflows/WP_6_0.yaml)
-[![WP6.1 [PHP7.2-8.1] Tests](https://github.com/Pink-Crab/Perique-BladeOne-Provider/actions/workflows/WP_6_1.yaml/badge.svg)](https://github.com/Pink-Crab/Perique-BladeOne-Provider/actions/workflows/WP_6_1.yaml)
+[![WP5.9 [PHP7.4-8.1] Tests](https://github.com/Pink-Crab/PBladeOne_Engine/actions/workflows/WP_5_9.yaml/badge.svg)](https://github.com/Pink-Crab/PBladeOne_Engine/actions/workflows/WP_5_9.yaml)
+[![WP6.0 [PHP7.4-8.1] Tests](https://github.com/Pink-Crab/PBladeOne_Engine/actions/workflows/WP_6_0.yaml/badge.svg)](https://github.com/Pink-Crab/PBladeOne_Engine/actions/workflows/WP_6_0.yaml)
+[![WP6.1 [PHP7.4-8.1] Tests](https://github.com/Pink-Crab/PBladeOne_Engine/actions/workflows/WP_6_1.yaml/badge.svg)](https://github.com/Pink-Crab/PBladeOne_Engine/actions/workflows/WP_6_1.yaml)
 
 [![codecov](https://codecov.io/gh/Pink-Crab/Perique-BladeOne-Provider/branch/master/graph/badge.svg?token=F7W4S9O5IR)](https://codecov.io/gh/Pink-Crab/Perique-BladeOne-Provider)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Pink-Crab/Perique-BladeOne-Provider/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Pink-Crab/Perique-BladeOne-Provider/?branch=master)

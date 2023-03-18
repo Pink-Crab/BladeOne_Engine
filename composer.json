@@ -1,7 +1,7 @@
 {
-    "name": "pinkcrab/bladeone-provider",
+    "name": "pinkcrab/bladeone-engine",
     "type": "library",
-    "description": "An implementation of the PinkCrab Renderable Interface used in the PinkCrab Plugin Framework.",
+    "description": "An implementation of the PinkCrab Renderable Interface used in the PinkCrab Plugin Framework V2+.",
     "keywords": [],
     "homepage": "https://pinkcrab.co.uk",
     "license": "MIT",

@@ -63,7 +63,7 @@ $app = ( new App_Factory('path/to/project/root') )
       $blade->config(function(BladeOne_Engine $engine) {
          // See all methods below.
          $engine->set_compiled_extension('.php');
-         $engine->directive('test', fn() =>'test');
+         $engine->directive('test', fn($e) =>'test');
          $provider->allow_pipe( false ); 
       });
 

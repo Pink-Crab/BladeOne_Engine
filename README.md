@@ -60,8 +60,8 @@ $app = ( new App_Factory('path/to/project/root') )
    ->module(BladeOne::class, function( BladeOne $blade ) {
       // Module config.
       $blade
-	  	   ->template_path('path/to/custom/views')
-	  	   ->compiled_path('path/to/custom/cache'); // Fluent API for chaining.
+         ->template_path('path/to/custom/views')
+         ->compiled_path('path/to/custom/cache'); // Fluent API for chaining.
       $blade->mode( BladeOne::MODE_DEBUG );
 
       // BladeOne_Engine config.

@@ -59,8 +59,9 @@ $app = ( new App_Factory('path/to/project/root') )
    ->default_config()
    ->module(BladeOne::class, function( BladeOne_Engine $blade ) {
       // Module config.
-      $blade->template_path('path/to/custom/views');
-      $blade->compiled_path('path/to/custom/cache');
+      $blade
+	  	->template_path('path/to/custom/views')
+	  	->compiled_path('path/to/custom/cache'); // Fluent API for chaining.
       $blade->mode( BladeOne::MODE_DEBUG );
 
       // BladeOne_Engine config.
@@ -68,7 +69,7 @@ $app = ( new App_Factory('path/to/project/root') )
          // See all methods below.
          $engine->set_compiled_extension('.php');
          $engine->directive('test', fn($e) =>'test');
-         $provider->allow_pipe( false ); 
+         $engine->allow_pipe( false ); 
       });
 
       // Ensure you return the instance.

@@ -469,9 +469,8 @@ Inside your templates it is possible to render components in your templates by u
 {!! $this->component(new SomeComponent()) !!}
 
 // Using the directive
-@component(new SomeComponent())
+@viewComponent(new SomeComponent())
 ```
-> Please note `@component` is not the same as regular BLADE components. BladeOne does not support these and this is the Perique Frameworks own implementation.
 
 
 ## Dependencies ##

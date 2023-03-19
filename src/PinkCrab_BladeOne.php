@@ -58,7 +58,7 @@ class PinkCrab_BladeOne extends BladeOne {
 
 		// Add the component directive.
 		$this->directiveRT(
-			'component',
+			'viewComponent',
 			function( $expression ) {
 				return $this->component( $expression, true );
 			}

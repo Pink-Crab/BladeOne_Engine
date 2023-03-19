@@ -42,14 +42,14 @@ class BladeOne_Engine implements Renderable {
 	 *
 	 * @var PinkCrab_BladeOne
 	 */
-	protected static $blade;
+	protected static PinkCrab_BladeOne $blade;
 
 	/**
 	 * Access to the component compiler.
 	 *
-	 * @var Component_Compiler
+	 * @var Component_Compiler|null
 	 */
-	protected $component_compiler;
+	protected ?Component_Compiler $component_compiler = null;
 
 	/**
 	 * Creates an instance with blade one.
@@ -152,7 +152,7 @@ class BladeOne_Engine implements Renderable {
 	public function component( Component $component, bool $print = true ) {
 
 		// Throw exception of no compiler passed.
-		if ( ! is_a( $this->component_compiler, Component_Compiler::class ) ) {
+		if ( null === $this->component_compiler ) {
 			throw new Exception( 'No component compiler passed to BladeOne' );
 		}
 

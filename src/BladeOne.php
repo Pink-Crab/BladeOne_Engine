@@ -24,19 +24,14 @@ declare( strict_types=1 );
 
 namespace PinkCrab\BladeOne;
 
-use Dice\Dice;
 use PinkCrab\Loader\Hook_Loader;
-use eftec\bladeone\BladeOne as Blade;
 use PinkCrab\BladeOne\BladeOne_Engine;
-use PinkCrab\Perique\Application\Hooks;
 use PinkCrab\Perique\Interfaces\Module;
 use PinkCrab\BladeOne\PinkCrab_BladeOne;
 use PinkCrab\Perique\Services\View\View;
 use PinkCrab\Perique\Interfaces\Renderable;
 use PinkCrab\Perique\Application\App_Config;
 use PinkCrab\Perique\Interfaces\DI_Container;
-use PinkCrab\Perique\Services\View\PHP_Engine;
-use PinkCrab\BladeOne\Abstract_BladeOne_Config;
 
 class BladeOne implements Module {
 

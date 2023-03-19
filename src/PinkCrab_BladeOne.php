@@ -26,7 +26,6 @@ declare( strict_types=1 );
 
 namespace PinkCrab\BladeOne;
 
-use php_user_filter;
 use eftec\bladeone\BladeOne;
 use eftec\bladeonehtml\BladeOneHtml;
 use PinkCrab\Perique\Application\App;
@@ -49,20 +48,10 @@ class PinkCrab_BladeOne extends BladeOne {
 		parent::__construct( $template_path, $compiled_path, $mode );
 
 		// Add the viewModel directive.
-		$this->directiveRT(
-			'viewModel',
-			function( $expression ) {
-				return $this->view_model( $expression, true );
-			}
-		);
+		$this->directiveRT( 'viewModel', fn( $expression ) => $this->view_model( $expression, true ) );
 
 		// Add the component directive.
-		$this->directiveRT(
-			'viewComponent',
-			function( $expression ) {
-				return $this->component( $expression, true );
-			}
-		);
+		$this->directiveRT( 'viewComponent', fn( $expression ) => $this->component( $expression, true ) );
 	}
 
 	/**

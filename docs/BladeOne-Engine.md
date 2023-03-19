@@ -34,7 +34,7 @@ public function directive( string $name, callable $handler ): self{}
 Calling this will allow you to create custom directives
 ```php
 // Directive Example
-$provider->directive('datetime', function ($expression) {
+$bladeone_engine->directive('datetime', function ($expression) {
 	// Return a valid PHP expression in php tags
     return "<?php echo ($expression)->format('m/d/Y H:i'); ?>";
 });
@@ -70,7 +70,7 @@ public function directive_rt( string $name, callable $handler ): self{}
 Calling this will allow you to create custom directives
 ```php
 // Directive at Run Time Example
-$provider->directive_rt('datetime', function ($expression) {
+$bladeone_engine->directive_rt('datetime', function ($expression) {
 	// Just print/echo the value.
 	return "echo $expression->format('m/d/Y H:i');";
 });
@@ -102,7 +102,7 @@ public function add_include( $view, $alias = null ): self{}
 This will allow you to set alias for your templates, this is ideal for global variables (share()).
 ```php
 // Directive at Run Time Example
-$provider->add_include('some.long.path.no.one.wants.to.type', 'longpath');
+$bladeone_engine->add_include('some.long.path.no.one.wants.to.type', 'longpath');
 
 // This can then be used when rendering.
 $class->render('longpath', ['data' => $data]);
@@ -122,7 +122,7 @@ public function add_alias_classes( $alias_name, $class_with_namespace ): self{}
 ```
 This allows for the creation of simpler and short class names for use in templates.
 ```php
-$provider->add_alias_classes('MyClass', 'Namespace\\For\\Class');
+$bladeone_engine->add_alias_classes('MyClass', 'Namespace\\For\\Class');
 ```
 ```html
 <!-- Called like so in your views. -->
@@ -153,7 +153,7 @@ public function share( $var_name, $value = null ): self{}
 ```
 Allows fore the creation of globals variable. This is best set in the Config class (detailed above) as you can pass in dependencies.
 ```php
-$provider->share('GLOBAL_foo', [$this->injected_dep, 'method']);
+$bladeone_engine->share('GLOBAL_foo', [$this->injected_dep, 'method']);
 ```
 ```html
 <!-- Called like so in your views. -->
@@ -179,7 +179,7 @@ public function set_file_extension( string $file_extension ): self{}
 ```
 Allows you to define a custom extension for your blade templates.
 ```php
-$provider->set_file_extension('.view.php');
+$bladeone_engine->set_file_extension('.view.php');
 
 // Can then be used to pass my.view.php as
 $foo->render('my', ['data'=>'foo']);
@@ -200,7 +200,7 @@ public function set_compiled_extension(( string $file_extension ): self{}
 ```
 Allows you to define a custom extension for your compiled views.
 ```php
-$provider->set_file_extension('.view_cache');
+$bladeone_engine->set_file_extension('.view_cache');
 ```
 ---
 
@@ -216,6 +216,6 @@ public function set_esc_function( callable $esc ): self {}
 ```
 Allows you to define a custom esc function for your views. By default this is set to `esc_html`.
 ```php
-$provider->set_esc_function('esc_attr');
+$bladeone_engine->set_esc_function('esc_attr');
 ```
 ---

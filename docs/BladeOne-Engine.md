@@ -1,8 +1,6 @@
+# BladeOne \[Engine]
 
-
-## Methods
-
-THe following methods can be used to configure the BladeOne_Engine. 
+The following methods can be used to configure the BladeOne_Engine class.
 
 
 **public function allow_pipe( bool $bool = true )**
@@ -24,8 +22,8 @@ Calling this will allow you to create custom directives
 ```php
 // Directive Example
 $bladeone_engine->directive('datetime', function ($expression) {
-	// Return a valid PHP expression in php tags
-    return "<?php echo ($expression)->format('m/d/Y H:i'); ?>";
+  // Return a valid PHP expression in php tags
+  return "<?php echo ($expression)->format('m/d/Y H:i'); ?>";
 });
 ```
 ```html

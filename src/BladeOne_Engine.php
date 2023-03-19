@@ -353,6 +353,5 @@ class BladeOne_Engine implements Renderable {
 		static::$blade->setCompiledExtension( $file_extension );
 		return $this;
 	}
-
 }
 

@@ -81,7 +81,51 @@ $app = ( new App_Factory('path/to/project/root') )
    // Rest of setup
    ->boot();
 ```
-> You can have as many of these config classes as you want, allowing you to break up any custom directives, globals values and aliases etc.
+
+<details>
+  <summary>Compact BladeOne Config</summary>
+  <p>It is possible to do the Module config in a much more concise fashion, using the fluent API and PHP Arrow functions</p>
+
+```php
+$app = ( new App_Factory('path/to/project/root') )
+   ->default_config()
+   ->module(BladeOne::class, fn( BladeOne $blade ) => $blade
+      ->template_path('path/to/custom/views')
+      ->compiled_path('path/to/custom/cache')
+      ->mode( BladeOne::MODE_DEBUG )
+      ->config( fn( BladeOne_Engine $engine ) => $engine
+         ->set_compiled_extension('.php')
+         ->directive('test', fn($e) =>'test')
+         ->allow_pipe( false )
+      )
+   )
+->boot();
+```
+
+You can also hold the config in its own class and use that.
+
+```php
+/** Some Class */
+class BladeOneConfig {
+   public function __invoke( BladeOne $blade ): BladeOne {
+      return $blade
+         ->template_path('path/to/custom/views')
+         ->compiled_path('path/to/custom/cache')
+         ->mode( BladeOne::MODE_DEBUG )
+         ->config( fn( BladeOne_Engine $engine ) => $engine
+            ->set_compiled_extension('.php')
+            ->directive('test', fn($e) =>'test')
+            ->allow_pipe( false )
+         );
+   }
+}
+
+$app = ( new App_Factory('path/to/project/root') )
+   ->default_config()
+   ->module(BladeOne::class, new BladeOneConfig() )
+   ->boot();
+```
+</details>
 
 ## Included Components
 

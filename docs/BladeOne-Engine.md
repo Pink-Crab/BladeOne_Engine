@@ -163,7 +163,7 @@ $bladeone_engine->set_file_extension('.view_cache');
  
 Allows you to define a custom esc function for your views. By default this is set to `esc_html`.
 
-> **must be a named function or invokable class**
+> **must be a named function**
 
 ```php
 $bladeone_engine->set_esc_function('esc_attr');

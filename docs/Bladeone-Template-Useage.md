@@ -325,6 +325,7 @@ There are a number built in BladeOne Directives which have been adapted from the
 > This allows for the rendering of self contained View Models, which can easily be passed already populated. `@viewModel($some_model)`
 
 **[See the Perique View Docs for more info](https://perique.info/core/App/view)**
+
 ----
 
 **Component**

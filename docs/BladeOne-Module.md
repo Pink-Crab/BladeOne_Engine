@@ -30,7 +30,7 @@ $app = ( new App_Factory('path/to/project/root') )
 
 ## Methods
 
-**public function template_path( string $template_path )**
+### **public function template_path( string $template_path )**
 > @param string $template_path  
 > @return self  
 
@@ -38,14 +38,14 @@ Allows the setting of the template path, this will be used for all templates run
 
 ****
 
-**public function compiled_path( string $compiled_path )**
+### **public function compiled_path( string $compiled_path )**
 > @param string $compiled_path  
 > @return self
 
 Allows the setting of the compiled path, this will be used for all templates run through BladeOne.
 
 ****
-**public function mode( int $mode )**
+### **public function mode( int $mode )**
 > @param int $mode  
 > @return self
 
@@ -58,7 +58,7 @@ Allows the setting of the mode, this will be used for all templates run through 
 * **PinkCrab_BladeOne::MODE_FAST** - Fast mode, the compiled templates will be cached, and the cache will only be checked if the original template has been modified.
 
 ****
-**public function config(\callable $config)**
+### **public function config(\callable $config)**
 > @param callable(BladeOne_Engine $engine) $config  
 > @return self
 

@@ -131,9 +131,9 @@ $app = ( new App_Factory('path/to/project/root') )
 
 You can call the following methods on the BladeOne Module to configure the BladeOne Module.
 * [`template_path( string $path ): self`](docs/BladeOne-Module.md#public-function-template_path-string-template_path-)
-* `compiled_path( string $path ): self`
-* `mode( int $mode ): self`
-* `config( \Closure $closure ): self`
+* [`compiled_path( string $path ): self`](docs/BladeOne-Module.md#public-function-compiled_path-string-compiled_path-)
+* [`mode( int $mode ): self`](docs/BladeOne-Module.md#public-function-mode-int-mode-)
+* [`config( \Closure $closure ): self`](docs/BladeOne-Module.md#public-function-configcallable-config)
 
 ## Included Components
 

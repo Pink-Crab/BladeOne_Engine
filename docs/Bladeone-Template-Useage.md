@@ -6,7 +6,8 @@
 
 ```blade
 {{$name}}
-
+```
+```php
 // Parses to
 <?php echo esc_html($name); ?>
 ```

@@ -130,10 +130,17 @@ $app = ( new App_Factory('path/to/project/root') )
 ## BladeOne_Module Config ##
 
 You can call the following methods on the BladeOne Module to configure the BladeOne Module.
-* [`template_path( string $path ): self`](docs/BladeOne-Module.md#public-function-template_path-string-template_path-)
-* [`compiled_path( string $path ): self`](docs/BladeOne-Module.md#public-function-compiled_path-string-compiled_path-)
-* [`mode( int $mode ): self`](docs/BladeOne-Module.md#public-function-mode-int-mode-)
-* [`config( \Closure $closure ): self`](docs/BladeOne-Module.md#public-function-configcallable-config)
+* [template_path](docs/BladeOne-Module.md#public-function-template_path-string-template_path-)
+* [compiled_path](docs/BladeOne-Module.md#public-function-compiled_path-string-compiled_path-)
+* [mode](docs/BladeOne-Module.md#public-function-mode-int-mode-)
+* [config](docs/BladeOne-Module.md#public-function-configcallable-config)
+
+## BladeOne_Engine Config ##
+
+You can call the following methods on the BladeOne_Engine to configure the BladeOne_Engine.
+* [allow_pipe](docs/BladeOne-Engine.md#public-function-allow_pipe-bool-bool--true-)
+* [directive](/docs/BladeOne-Engine.md#public-function-directive-string-name-callable-handler-)
+* [directive_if](/docs/BladeOne-Engine.md#public-function-directive_if-string-name-callable-handler-)
 
 ## Included Components
 

@@ -314,6 +314,16 @@ There are a number built in BladeOne Directives which have been adapted from the
 
 > This works using WP User Capabilities, so you can use any of the [built in capabilities](https://codex.wordpress.org/Roles_and_Capabilities#Capabilities) or [create your own](https://codex.wordpress.org/Roles_and_Capabilities#Capability_vs._Role_Table).
 
-## Auth & Permissions
+**View Model**
+
+```blade
+@viewModel(new View_Model('some.template', ['key' => 'value']))
+
+{{-- You can also call the underlying method from the Perique View/Renderable system --}}
+{!!  $this->view_model(new View_Model('some.template', ['key' => 'value'])) !!}
+```
+
+> This allows for the rendering of self contained View Models, which can easily be passed already populated. `@viewModel($some_model)`
+
 
 ----

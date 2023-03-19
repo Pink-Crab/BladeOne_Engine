@@ -54,8 +54,8 @@ Calling this will allow you to create custom directives
 ```php
 // Directive at Run Time Example
 $bladeone_engine->directive_rt('datetime', function ($expression) {
-	// Just print/echo the value.
-	return "echo $expression->format('m/d/Y H:i');";
+  // Just print/echo the value.
+  return "echo $expression->format('m/d/Y H:i');";
 });
 ```
 ```html

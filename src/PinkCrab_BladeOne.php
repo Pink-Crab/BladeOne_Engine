@@ -150,5 +150,4 @@ class PinkCrab_BladeOne extends BladeOne {
 		return $view->view_model( $view_model, $print );
 	}
 
-
 }

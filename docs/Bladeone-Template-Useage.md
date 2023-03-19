@@ -318,12 +318,23 @@ There are a number built in BladeOne Directives which have been adapted from the
 
 ```blade
 @viewModel(new View_Model('some.template', ['key' => 'value']))
-
 {{-- You can also call the underlying method from the Perique View/Renderable system --}}
 {!!  $this->view_model(new View_Model('some.template', ['key' => 'value'])) !!}
 ```
 
 > This allows for the rendering of self contained View Models, which can easily be passed already populated. `@viewModel($some_model)`
 
-
+**[See the Perique View Docs for more info](https://perique.info/core/App/view)**
 ----
+
+**Component**
+
+```blade
+@viewComponent(new SomeComponent('arg1', 12.45))
+{{-- You can also call the underlying method from the Perique View/Renderable system --}}
+{!! $this->component(new SomeComponent('arg1', 12.45)) !!}
+```
+
+> This allows for the rendering of self contained View Components, which can easily be passed already populated. `@viewComponent($some_component)` Please note that this is not the same as the BladeOne `@component` directive.
+
+**[See the Perique View Docs for more info](https://perique.info/core/App/view)**

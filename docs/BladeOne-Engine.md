@@ -5,7 +5,7 @@
 THe following methods can be used to configure the BladeOne_Engine. 
 
 
-### **allow_pipe** ###
+**allow_pipe**
 ```php
 /**
  * Sets if piping is enabled in templates.
@@ -13,14 +13,14 @@ THe following methods can be used to configure the BladeOne_Engine.
  * @param bool $bool
  * @return self
  */
-public function allow_pipe( bool $bool = true ): self{}
+public function allow_pipe( bool $bool = true ): self
 ```
 Calling this will allow you toggle piping `{{ $var | esc_html }}` on or off. By default this is enabled.  
 *Details*: https://github.com/EFTEC/BladeOne/wiki/Template-Pipes-\(Filter\)
 
 ---
 
-### **directive** ###
+**directive**
 ```php
 /**
  * Register a handler for custom directives.
@@ -29,7 +29,7 @@ Calling this will allow you toggle piping `{{ $var | esc_html }}` on or off. By 
  * @param callable $handler
  * @return self
  */
-public function directive( string $name, callable $handler ): self{}
+public function directive( string $name, callable $handler ): self
 ```
 Calling this will allow you to create custom directives
 ```php
@@ -56,7 +56,7 @@ $class->render('path.to.view', ['now' => new DateTime()]);
 > Don't forget our config class is loaded via the DI Container, so you can encapsulate your Directive callbacks into a class, with dependencies injected using the DI Container. (See above example)
 ---
 
-### **directive_rt** ###
+**directive_rt**
 ```php
 /**
  * Register a handler for custom directives at runtime only.
@@ -65,7 +65,7 @@ $class->render('path.to.view', ['now' => new DateTime()]);
  * @param callable $handler
  * @return self
  */
-public function directive_rt( string $name, callable $handler ): self{}
+public function directive_rt( string $name, callable $handler ): self
 ```
 Calling this will allow you to create custom directives
 ```php
@@ -88,7 +88,7 @@ $class->render('path.to.view', ['now' => new DateTime()]);
 ```
 ---
 
-### **add_include** ###
+**add_include**
 ```php
 /**
  * Define a template alias
@@ -97,7 +97,7 @@ $class->render('path.to.view', ['now' => new DateTime()]);
  * @param string|null $alias example "mynewop". If null then it uses the name of the template.
  * @return self
  */
-public function add_include( $view, $alias = null ): self{}
+public function add_include( $view, $alias = null ): self
 ```
 This will allow you to set alias for your templates, this is ideal for global variables (share()).
 ```php
@@ -109,7 +109,7 @@ $class->render('longpath', ['data' => $data]);
 ```
 ---
 
-### **add_alias_classes** ###
+**add_alias_classes**
 ```php
 /**
  * Define a class with a namespace
@@ -118,7 +118,7 @@ $class->render('longpath', ['data' => $data]);
  * @param string $class_with_namespace
  * @return self
  */
-public function add_alias_classes( $alias_name, $class_with_namespace ): self{}
+public function add_alias_classes( $alias_name, $class_with_namespace ): self
 ```
 This allows for the creation of simpler and short class names for use in templates.
 ```php
@@ -133,7 +133,7 @@ $bladeone_engine->add_alias_classes('MyClass', 'Namespace\\For\\Class');
 
 ---
 
-### **share** ###
+**share**
 ```php
 /**
  * Adds a global variable. If <b>$var_name</b> is an array then it merges all the values.
@@ -149,7 +149,7 @@ $bladeone_engine->add_alias_classes('MyClass', 'Namespace\\For\\Class');
  * @param mixed        $value
  * @return self
  */
-public function share( $var_name, $value = null ): self{}
+public function share( $var_name, $value = null ): self
 ```
 Allows fore the creation of globals variable. This is best set in the Config class (detailed above) as you can pass in dependencies.
 ```php
@@ -158,7 +158,8 @@ $bladeone_engine->share('GLOBAL_foo', [$this->injected_dep, 'method']);
 ```html
 <!-- Called like so in your views. -->
 {{ $GLOBAL_foo }}
-@include('some.path') <!-- Where some.path uses GLOBAL_foo, ideal for dynamic components like nav menus >
+@include('some.path') 
+<!-- Where some.path uses GLOBAL_foo, ideal for dynamic components like nav menus >
 ```
 > You do not need to defined \$GLOBAL_foo when you are passing values to render `\$foo->render('template.path', [])`
 
@@ -166,7 +167,7 @@ $bladeone_engine->share('GLOBAL_foo', [$this->injected_dep, 'method']);
 
 ---
 
-### **set_file_extension** ###
+**set_file_extension**
 ```php
 /**
  * Set the file extension for the template files.
@@ -175,7 +176,7 @@ $bladeone_engine->share('GLOBAL_foo', [$this->injected_dep, 'method']);
  * @param string $file_extension Example: .prefix.ext
  * @return self
  */
-public function set_file_extension( string $file_extension ): self{}
+public function set_file_extension( string $file_extension ): self
 ```
 Allows you to define a custom extension for your blade templates.
 ```php
@@ -187,7 +188,7 @@ $foo->render('my', ['data'=>'foo']);
 
 ---
 
-### **set_compiled_extension** ###
+**set_compiled_extension**
 ```php
 /**
  * Set the file extension for the compiled files.
@@ -196,7 +197,7 @@ $foo->render('my', ['data'=>'foo']);
  * @param string $file_extension
  * @return self
  */
-public function set_compiled_extension(( string $file_extension ): self{}
+public function set_compiled_extension(( string $file_extension ): self
 ```
 Allows you to define a custom extension for your compiled views.
 ```php
@@ -204,7 +205,7 @@ $bladeone_engine->set_file_extension('.view_cache');
 ```
 ---
 
-### **set_esc** ###
+**set_esc**
 ```php
 /**
  * Sets the esc function.
@@ -212,7 +213,7 @@ $bladeone_engine->set_file_extension('.view_cache');
  * @param callable(mixed):string $esc
  * @return self
  */
-public function set_esc_function( callable $esc ): self {}
+public function set_esc_function( callable $esc ): self
 ```
 Allows you to define a custom esc function for your views. By default this is set to `esc_html`.
 ```php

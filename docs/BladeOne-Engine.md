@@ -84,17 +84,11 @@ $class->render('longpath', ['data' => $data]);
 ```
 ---
 
-**add_alias_classes**
-```php
-/**
- * Define a class with a namespace
- *
- * @param string $alias_name
- * @param string $class_with_namespace
- * @return self
- */
-public function add_alias_classes( $alias_name, $class_with_namespace ): self
-```
+**public function add_alias_classes( $alias_name, $class_with_namespace )**
+> @param string $alias_name  
+> @param string $class_with_namespace  
+> @return self  
+ 
 This allows for the creation of simpler and short class names for use in templates.
 ```php
 $bladeone_engine->add_alias_classes('MyClass', 'Namespace\\For\\Class');
@@ -108,27 +102,24 @@ $bladeone_engine->add_alias_classes('MyClass', 'Namespace\\For\\Class');
 
 ---
 
-**share**
+**public function share( string|array $var_name, $value = null )**
+> @param string|array<string, mixed> $var_name It is the name of the variable or it is an associative array  
+> @param mixed        $value  
+> @return self
+
+Allows fore the creation of globals variable. These can be set individually or as an array.
 ```php
-/**
- * Adds a global variable. If <b>$var_name</b> is an array then it merges all the values.
- * <b>Example:</b>
- * <pre>
- * $this->share('variable',10.5);
- * $this->share('variable2','hello');
- * // or we could add the two variables as:
- * $this->share(['variable'=>10.5,'variable2'=>'hello']);
- * </pre>
- *
- * @param string|array<string, mixed> $var_name It is the name of the variable or it is an associative array
- * @param mixed        $value
- * @return self
- */
-public function share( $var_name, $value = null ): self
-```
-Allows fore the creation of globals variable. This is best set in the Config class (detailed above) as you can pass in dependencies.
-```php
+// Calling a function from a class.
 $bladeone_engine->share('GLOBAL_foo', [$this->injected_dep, 'method']);
+
+// Single static value.
+$bladeone_engine->share('GLOBAL_foo', 'bar');
+
+// Array of values.
+$bladeone_engine->share([
+  'GLOBAL_foo' => 'bar',
+  'GLOBAL_bar' => 'foo',
+]);
 ```
 ```html
 <!-- Called like so in your views. -->
@@ -142,17 +133,10 @@ $bladeone_engine->share('GLOBAL_foo', [$this->injected_dep, 'method']);
 
 ---
 
-**set_file_extension**
-```php
-/**
- * Set the file extension for the template files.
- * It must includes the leading dot e.g. .blade.php
- *
- * @param string $file_extension Example: .prefix.ext
- * @return self
- */
-public function set_file_extension( string $file_extension ): self
-```
+**public function set_file_extension( string $file_extension )**
+> @param string $file_extension Example: `.prefix.ext`  
+> @return self  
+ 
 Allows you to define a custom extension for your blade templates.
 ```php
 $bladeone_engine->set_file_extension('.view.php');
@@ -163,33 +147,20 @@ $foo->render('my', ['data'=>'foo']);
 
 ---
 
-**set_compiled_extension**
-```php
-/**
- * Set the file extension for the compiled files.
- * Including the leading dot for the extension is required, e.g. .bladec
- *
- * @param string $file_extension
- * @return self
- */
-public function set_compiled_extension(( string $file_extension ): self
-```
+**public function set_compiled_extension( string $file_extension )**
+> @param string $file_extension  Example: `.view_cache`   
+> @return self  
+ 
 Allows you to define a custom extension for your compiled views.
 ```php
 $bladeone_engine->set_file_extension('.view_cache');
 ```
 ---
 
-**set_esc**
-```php
-/**
- * Sets the esc function.
- * 
- * @param callable(mixed):string $esc
- * @return self
- */
-public function set_esc_function( callable $esc ): self
-```
+**public function set_esc_function( callable $esc )**
+> @param callable(mixed):string $esc (must be a named function or invokable class) 
+> @return self  
+ 
 Allows you to define a custom esc function for your views. By default this is set to `esc_html`.
 ```php
 $bladeone_engine->set_esc_function('esc_attr');

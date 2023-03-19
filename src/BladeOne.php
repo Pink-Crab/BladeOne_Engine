@@ -156,9 +156,11 @@ class BladeOne implements Module {
 	 */
 	private function get_auth_data(): array {
 
+		// @codeCoverageIgnoreStart
 		if ( ! function_exists( 'wp_get_current_user' ) ) {
-			include ABSPATH . 'wp-includes/pluggable.php';
+			require_once ABSPATH . 'wp-includes/pluggable.php';
 		}
+		// @codeCoverageIgnoreEnd
 
 		$user = \wp_get_current_user();
 		return array(
@@ -182,7 +184,7 @@ class BladeOne implements Module {
 
 		// If dont have an instance of BladeOne_Engine, return.
 		if ( ! $provider instanceof BladeOne_Engine ) {
-			return;
+			throw new \RuntimeException( 'Unable to create BladeOne_Engine instance to configure instance' );
 		}
 
 		// Pass the config to the provider, if set.

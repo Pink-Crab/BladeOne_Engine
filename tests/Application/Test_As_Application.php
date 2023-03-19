@@ -248,7 +248,7 @@ class Test_As_Application extends WP_UnitTestCase {
 		$app = $this->pre_populated_app_provider();
 
 		$engine = $app::view()->engine()->get_blade();
-
+// dd($engine);
 		$current_user        = $engine->getCurrentUser();
 		$current_role        = $engine->getCurrentRole();
 		$current_permissions = $engine->getCurrentPermission();
@@ -275,6 +275,7 @@ class Test_As_Application extends WP_UnitTestCase {
 
 		$engine = $app::view()->engine()->get_blade();
 
+
 		$current_user        = $engine->getCurrentUser();
 		$current_role        = $engine->getCurrentRole();
 		$current_permissions = $engine->getCurrentPermission();
@@ -287,20 +288,46 @@ class Test_As_Application extends WP_UnitTestCase {
 		$this->assertEmpty( $current_permissions );
 	}
 
-	/** @testdox It should be possible to use WP user roles to make some aspects of the template render */
-	public function test_user_auth_logged_in_rendered(): void {
+	/** @testdox It should be possible to use WP user roles to make some aspects of the template render logged in as administrator*/
+	public function test_user_auth_logged_in_rendered_admin(): void {
 		$user = $this->factory()->user->create_and_get( array( 'role' => 'administrator' ) );
 		wp_set_current_user( $user->ID );
 
 		$app = $this->pre_populated_app_provider();
 
-		// using @auth directive
-		$output = $app::view()->render( 'testauth', array(), false );
+		// using @auth directive with role
+		$output = $app::view()->render( 'testauthrole', array(), false );
 		$this->assertStringContainsString( 'Administrator', $output );
+
+		// using @auth directive no role, just "logged in"
+		$output = $app::view()->render( 'testauthany', array(), false );
+		$this->assertStringContainsString( 'Is Logged In', $output );
+		$this->assertStringContainsString( 'Isn\'t Guest', $output );
 
 		// using @can directive
 		$output = $app::view()->render( 'testroles', array(), false );
 		$this->assertStringContainsString( 'can_manage_options', $output );
+	}
+
+	/** @testdox It should be possible to use WP user roles to make some aspects of the template render logged in as edior*/
+	public function test_user_auth_logged_in_rendered_editor(): void {
+		$user = $this->factory()->user->create_and_get( array( 'role' => 'editor' ) );
+		wp_set_current_user( $user->ID );
+
+		$app = $this->pre_populated_app_provider();
+
+		// using @auth directive with role
+		$output = $app::view()->render( 'testauthrole', array(), false );
+		$this->assertStringContainsString( 'Editor', $output );
+
+		// using @auth directive no role, just "logged in"
+		$output = $app::view()->render( 'testauthany', array(), false );
+		$this->assertStringContainsString( 'Is Logged In', $output );
+		$this->assertStringContainsString( 'Isn\'t Guest', $output );
+
+		// using @can directive
+		$output = $app::view()->render( 'testroles', array(), false );
+		$this->assertStringContainsString( 'can_edit_posts', $output );
 	}
 
 	/** @testdox It should be possible to use WP user roles to make some aspects of the template render */
@@ -309,9 +336,15 @@ class Test_As_Application extends WP_UnitTestCase {
 
 		$app = $this->pre_populated_app_provider();
 
-		// using @auth directive
-		$output = $app::view()->render( 'testauth', array(), false );
-		$this->assertStringContainsString( 'Guest', $output );
+		// using @auth directive with role
+		$output = $app::view()->render( 'testauthrole', array(), false );
+		$this->assertStringContainsString( '(not administrator)', $output );
+		$this->assertStringContainsString( '(neither administrator or editor)', $output );
+
+		// using @auth directive no role, just "logged in"
+		$output = $app::view()->render( 'testauthany', array(), false );
+		$this->assertStringContainsString( 'Isn\'t Logged In', $output );
+		$this->assertStringContainsString( 'Is Guest', $output );
 
 		// using @can directive
 		$output = $app::view()->render( 'testroles', array(), false );

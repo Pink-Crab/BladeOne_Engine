@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Tests the BladeOne Provider.
+ * Tests the BladeOne_Engine.
  *
  * @since 0.1.0
  * @author Glynn Quelch <glynn.quelch@gmail.com>

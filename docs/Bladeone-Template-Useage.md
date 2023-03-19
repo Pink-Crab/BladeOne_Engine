@@ -32,7 +32,8 @@ You can also define a default value for a variable if it is not set.
 
 ```blade
 {{$name or 'Default Name'}}
-
+```
+```php
 // Parses to
 <?php echo \esc_html(isset($name) ? $name : 'Default Name'); ?>
 ```
@@ -43,7 +44,8 @@ You can also define a default value for a variable if it is not set.
 
 ```blade
 {{time()}}
-
+```
+```php
 // Parses to
 <?php echo time(); ?>
 ```
@@ -73,7 +75,8 @@ You can also define a default value for a variable if it is not set.
 @else
     <p>Foo and Bar are false</p>
 @endif
-
+```
+```php
 // Parses to
 <?php if($foo): ?>
     <p>Foo is true</p>
@@ -103,7 +106,8 @@ You can also define a default value for a variable if it is not set.
     @default
         <p>Something else</p>
 @endswitch
-
+```
+```php
 // Parses to
 <?php switch($i): case(1): ?>
     <p>One</p>
@@ -128,7 +132,8 @@ You can also define a default value for a variable if it is not set.
 @for($i = 0; $i < 10; $i++)
     <p>Looping {{$i}}</p>
 @endfor
-
+```
+```php
 // Parses to
 <?php for($i = 0; $i < 10; $i++): ?>
     <p>Looping <?php echo $i; ?></p>
@@ -146,7 +151,8 @@ You can also define a default value for a variable if it is not set.
 @foreach($users as $user)
     <p>{{$user->name}}</p>
 @endforeach
-
+```
+```php
 // Parses to
 <?php foreach($users as $user): ?>
     <p><?php echo $user->name; ?></p>
@@ -167,7 +173,8 @@ You can also define a default value for a variable if it is not set.
 @empty
     <p>No users found</p>
 @endforelse
-
+```
+```php
 // Parses to
 <?php foreach($users as $user): ?>
     <p><?php echo $user->name; ?></p>
@@ -189,7 +196,8 @@ You can also define a default value for a variable if it is not set.
     <p>Looping {{$i}}</p>
     <?php $i++; ?>
 @endwhile
-
+```
+```php
 // Parses to
 <?php while($i < 10): ?>
     <p>Looping <?php echo $i; ?></p>
@@ -205,7 +213,8 @@ You can also define a default value for a variable if it is not set.
 
 ```blade
 @include('path.to.view')
-
+```
+```php
 // Parses to
 <?php include 'base/path/to/view.php'; ?>
 ```
@@ -231,7 +240,8 @@ Out of the box, Perique BladeOne comes bundled with a selection of HTML helpers 
     @textarea(name="description" value="default")
     @button(text="click me" type="submit" class="test" onclick='alert("ok")')
 @endform
-
+```
+```php
 // Parses to
 <form  method="post" action="testform">
   <input type="text" name="myform" value="<?php echo $this->e($value);?>" />
@@ -256,7 +266,8 @@ There are a number built in BladeOne Directives which have been adapted from the
 @else
     <p>Not Authenticated</p>
 @endauth
-
+```
+```php
 // Parses to
 <?php if(is_user_logged_in()): ?>
     <p>Authenticated</p>

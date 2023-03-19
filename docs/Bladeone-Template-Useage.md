@@ -18,7 +18,8 @@
 
 ```blade
 {!!$name!!}
-
+```
+```php
 // Parses to
 <?php echo $name; ?>
 ```

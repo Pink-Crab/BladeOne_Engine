@@ -291,7 +291,7 @@ There are a number built in BladeOne Directives which have been adapted from the
 
 **Permissions**
 
-```mustache
+```blade
 @can(permission="edit_posts")
     <p>Can Edit Posts</p>
 @elsecan(permission="manage_options")

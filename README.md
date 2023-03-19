@@ -127,6 +127,14 @@ $app = ( new App_Factory('path/to/project/root') )
 ```
 </details>
 
+## BladeOne_Module Config ##
+
+You can call the following methods on the BladeOne Module to configure the BladeOne Module.
+* [`template_path( string $path ): self`](docs/BladeOne-Module.md#public-function-template_path-string-template_path-)
+* `compiled_path( string $path ): self`
+* `mode( int $mode ): self`
+* `config( \Closure $closure ): self`
+
 ## Included Components
 
 Out of the box PinkCrab_BladeOne comes with the BladeOneHTML trait added, giving access all HTML components.

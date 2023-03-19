@@ -4,7 +4,7 @@
 ----
 **Echo String \[Escaped\]**
 
-```php
+```blade
 {{$name}}
 
 // Parses to
@@ -16,7 +16,7 @@
 
 **Echo String \[Unescaped\]**
 
-```php
+```blade
 {!!$name!!}
 
 // Parses to
@@ -28,7 +28,7 @@
 
 You can also define a default value for a variable if it is not set.
 
-```php
+```blade
 {{$name or 'Default Name'}}
 
 // Parses to
@@ -39,7 +39,7 @@ You can also define a default value for a variable if it is not set.
 
 **Calling PHP Functions**
 
-```php
+```blade
 {{time()}}
 
 // Parses to
@@ -51,7 +51,7 @@ You can also define a default value for a variable if it is not set.
 
 **Running PHP Blocks**
 
-```php
+```blade
 @php
     $foo = 'bar';
     printf('Hello %s', $foo);
@@ -63,7 +63,7 @@ You can also define a default value for a variable if it is not set.
 
 **If Statements**
 
-```php
+```blade
 @if($foo)
     <p>Foo is true</p>
 @elseif($bar)
@@ -90,7 +90,7 @@ You can also define a default value for a variable if it is not set.
 
 **Switch Statements**
 
-```php
+```blade
 @switch($i)
     @case(1)
         <p>One</p>
@@ -122,7 +122,7 @@ You can also define a default value for a variable if it is not set.
 
 **For Loops**
 
-```php
+```blade
 @for($i = 0; $i < 10; $i++)
     <p>Looping {{$i}}</p>
 @endfor
@@ -140,7 +140,7 @@ You can also define a default value for a variable if it is not set.
 
 **Foreach Loops**
 
-```php
+```blade
 @foreach($users as $user)
     <p>{{$user->name}}</p>
 @endforeach
@@ -159,7 +159,7 @@ You can also define a default value for a variable if it is not set.
 
 **Forelse Loops**
 
-```php
+```blade
 @forelse($users as $user)
     <p>{{$user->name}}</p>
 @empty
@@ -182,7 +182,7 @@ You can also define a default value for a variable if it is not set.
 
 **While Loops**
 
-```php
+```blade
 @while($i < 10)
     <p>Looping {{$i}}</p>
     <?php $i++; ?>
@@ -201,7 +201,7 @@ You can also define a default value for a variable if it is not set.
 
 **Include**
 
-```php
+```blade
 @include('path.to.view')
 
 // Parses to
@@ -223,7 +223,7 @@ Out of the box, Perique BladeOne comes bundled with a selection of HTML helpers 
 
 **Form**
 
-```php
+```blade
 @form(method="post" action="testform")
     @input(type="text" name="myform" value=$value)
     @textarea(name="description" value="default")
@@ -248,7 +248,7 @@ There are a number built in BladeOne Directives which have been adapted from the
 
 **Auth**
 
-```php
+```blade
 @auth
     <p>Authenticated</p>
 @else
@@ -266,7 +266,7 @@ There are a number built in BladeOne Directives which have been adapted from the
 
 ### It is also possible to use the `@auth` directive to check for specific roles.
 
-```php
+```blade
 @auth(role="administrator")
     <p>Administrator</p>
 @elseauth(role="editor")
@@ -278,7 +278,7 @@ There are a number built in BladeOne Directives which have been adapted from the
 
 ### You can also check if in reverse
 
-```php
+```blade
 @guest('administrator')
     (not administrator)
 @elseguest('editor')

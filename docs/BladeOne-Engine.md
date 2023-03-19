@@ -45,17 +45,11 @@ $class->render('path.to.view', ['now' => new DateTime()]);
 > Don't forget our config class is loaded via the DI Container, so you can encapsulate your Directive callbacks into a class, with dependencies injected using the DI Container. (See above example)
 ---
 
-**directive_rt**
-```php
-/**
- * Register a handler for custom directives at runtime only.
- *
- * @param string   $name
- * @param callable $handler
- * @return self
- */
-public function directive_rt( string $name, callable $handler ): self
-```
+**public function directive_rt( string $name, callable $handler)**
+> @param string   $name  
+> @param callable $handler  
+> @return self  
+
 Calling this will allow you to create custom directives
 ```php
 // Directive at Run Time Example
@@ -77,17 +71,11 @@ $class->render('path.to.view', ['now' => new DateTime()]);
 ```
 ---
 
-**add_include**
-```php
-/**
- * Define a template alias
- *
- * @param string      $view  example "folder.template"
- * @param string|null $alias example "mynewop". If null then it uses the name of the template.
- * @return self
- */
-public function add_include( $view, $alias = null ): self
-```
+**public function add_include( $view, $alias = null )**
+> @param string      $view  example "folder.template"  
+> @param string|null $alias example "mynewop". If null then it uses the name of the template.  
+> @return self  
+
 This will allow you to set alias for your templates, this is ideal for global variables (share()).
 ```php
 // Directive at Run Time Example

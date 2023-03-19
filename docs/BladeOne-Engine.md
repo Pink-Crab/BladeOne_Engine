@@ -3,7 +3,7 @@
 The following methods can be used to configure the BladeOne_Engine class.
 
 
-**public function allow_pipe( bool $bool = true )**
+### **public function allow_pipe( bool $bool = true )**
 > @param bool $bool Default true  
 > @return self  
 
@@ -13,7 +13,7 @@ Calling this will allow you toggle piping `{{ $var | esc_html }}` on or off. By 
 
 ---
 
-**public function directive( string $name, callable $handler )**
+### **public function directive( string $name, callable $handler )**
 > @param string   $name  
 > @param callable $handler  
 > @return self  
@@ -43,7 +43,7 @@ $class->render('path.to.view', ['now' => new DateTime()]);
 > Don't forget our config class is loaded via the DI Container, so you can encapsulate your Directive callbacks into a class, with dependencies injected using the DI Container. (See above example)
 ---
 
-**public function directive_rt( string $name, callable $handler)**
+### **public function directive_rt( string $name, callable $handler)**
 > @param string   $name  
 > @param callable $handler  
 > @return self  
@@ -69,7 +69,7 @@ $class->render('path.to.view', ['now' => new DateTime()]);
 ```
 ---
 
-**public function add_include( $view, $alias = null )**
+### **public function add_include( $view, $alias = null )**
 > @param string      $view  example "folder.template"  
 > @param string|null $alias example "mynewop". If null then it uses the name of the template.  
 > @return self  
@@ -84,7 +84,7 @@ $class->render('longpath', ['data' => $data]);
 ```
 ---
 
-**public function add_alias_classes( $alias_name, $class_with_namespace )**
+### **public function add_alias_classes( $alias_name, $class_with_namespace )**
 > @param string $alias_name  
 > @param string $class_with_namespace  
 > @return self  
@@ -102,7 +102,7 @@ $bladeone_engine->add_alias_classes('MyClass', 'Namespace\\For\\Class');
 
 ---
 
-**public function share( string|array $var_name, $value = null )**
+### **public function share( string|array $var_name, $value = null )**
 > @param string|array<string, mixed> $var_name It is the name of the variable or it is an associative array  
 > @param mixed        $value  
 > @return self
@@ -133,7 +133,7 @@ $bladeone_engine->share([
 
 ---
 
-**public function set_file_extension( string $file_extension )**
+### **public function set_file_extension( string $file_extension )**
 > @param string $file_extension Example: `.prefix.ext`  
 > @return self  
  
@@ -147,7 +147,7 @@ $foo->render('my', ['data'=>'foo']);
 
 ---
 
-**public function set_compiled_extension( string $file_extension )**
+### **public function set_compiled_extension( string $file_extension )**
 > @param string $file_extension  Example: `.view_cache`   
 > @return self  
  
@@ -157,7 +157,7 @@ $bladeone_engine->set_file_extension('.view_cache');
 ```
 ---
 
-**public function set_esc_function( callable $esc )**
+### **public function set_esc_function( callable $esc )**
 > @param callable(mixed):string $esc (must be a named function or invokable class) 
 > @return self  
  

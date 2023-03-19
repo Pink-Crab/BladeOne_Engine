@@ -5,32 +5,21 @@
 THe following methods can be used to configure the BladeOne_Engine. 
 
 
-**allow_pipe**
-```php
-/**
- * Sets if piping is enabled in templates.
- *
- * @param bool $bool
- * @return self
- */
-public function allow_pipe( bool $bool = true ): self
-```
+**public function allow_pipe( bool $bool = true )**
+> @param bool $bool Default true  
+> @return self  
+
 Calling this will allow you toggle piping `{{ $var | esc_html }}` on or off. By default this is enabled.  
+
 *Details*: https://github.com/EFTEC/BladeOne/wiki/Template-Pipes-\(Filter\)
 
 ---
 
-**directive**
-```php
-/**
- * Register a handler for custom directives.
- *
- * @param string   $name
- * @param callable $handler
- * @return self
- */
-public function directive( string $name, callable $handler ): self
-```
+**public function directive( string $name, callable $handler )**
+> @param string   $name  
+> @param callable $handler  
+> @return self  
+
 Calling this will allow you to create custom directives
 ```php
 // Directive Example

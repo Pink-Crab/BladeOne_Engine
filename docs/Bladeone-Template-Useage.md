@@ -339,3 +339,25 @@ There are a number built in BladeOne Directives which have been adapted from the
 > This allows for the rendering of self contained View Components, which can easily be passed already populated. `@viewComponent($some_component)` Please note that this is not the same as the BladeOne `@component` directive.
 
 **[See the Perique View Docs for more info](https://perique.info/core/App/view)**
+
+### **nonce**
+
+You can render a WP Nonce field using the `@nonce` directive.
+
+```blade
+@nonce("my_action")
+```
+The above will render a nonce field with the action `my_action` and the name `_pcnonce`. *Including the `_wp_http_referer` field*
+
+
+```blade
+@nonce("my_action", "_nonce_field")
+```
+The above will render a nonce field with the action `my_action` and the name `_nonce_field`. *Including the `_wp_http_referer` field*
+*
+
+```blade
+@nonce("my_action", "_nonce_field", false)
+```
+The above will render a nonce field with the action `my_action` and the name `_nonce_field`. *Not including the `_wp_http_referer` field*
+

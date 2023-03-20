@@ -52,6 +52,19 @@ class PinkCrab_BladeOne extends BladeOne {
 
 		// Add the component directive.
 		$this->directiveRT( 'viewComponent', fn( $expression ) => $this->component( $expression, true ) );
+
+		// Add the WP_Nonce directive.
+		$this->directiveRT(
+			'nonce',
+			function( string $action, ?string $field = null, bool $inc_referer = true ): void {
+				\wp_nonce_field(
+					$action,
+					$field ?? '_pcnonce',
+					$inc_referer,
+					true
+				);
+			}
+		);
 	}
 
 	/**

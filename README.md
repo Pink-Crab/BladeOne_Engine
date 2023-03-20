@@ -139,8 +139,14 @@ You can call the following methods on the BladeOne Module to configure the Blade
 
 You can call the following methods on the BladeOne_Engine to configure the BladeOne_Engine.
 * [allow_pipe](docs/BladeOne-Engine.md#public-function-allow_pipe-bool-bool--true-)
-* [directive](/docs/BladeOne-Engine.md#public-function-directive-string-name-callable-handler-)
-* [directive_if](/docs/BladeOne-Engine.md#public-function-directive_if-string-name-callable-handler-)
+* [directive](docs/BladeOne-Engine.md#public-function-directive-string-name-callable-handler-)
+* [directive_rt](/docs/BladeOne-Engine.md#public-function-directive_rt-string-name-callable-handler)
+* [add_include](docs/BladeOne-Engine.md#public-function-add_include-view-alias--null-)
+* [add_class_alias](docs/BladeOne-Engine.md#public-function-add_alias_classes-alias_name-class_with_namespace-)
+* [share](docs/BladeOne-Engine.md#public-function-share-stringarray-var_name-value--null-)
+* [set_file_extension](docs/BladeOne-Engine.md#public-function-set_file_extension-string-file_extension-)
+* [set_compiled_extension](docs/BladeOne-Engine.md#public-function-set_compiled_extension-string-file_extension-)
+* [set_esc_function](docs/BladeOne-Engine.md#public-function-set_esc_function-callable-esc-)
 
 ## Included Components
 

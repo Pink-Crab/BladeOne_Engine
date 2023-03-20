@@ -2,7 +2,7 @@
 ## Blade Basics
 
 ----
-**Echo String \[Escaped\]**
+### **Echo String \[Escaped\]**
 
 ```blade
 {{$name}}
@@ -15,7 +15,7 @@
 
 ----
 
-**Echo String \[Unescaped\]**
+### **Echo String \[Unescaped\]**
 
 ```blade
 {!!$name!!}
@@ -40,7 +40,7 @@ You can also define a default value for a variable if it is not set.
 
 ----
 
-**Calling PHP Functions**
+### **Calling PHP Functions**
 
 ```blade
 {{time()}}
@@ -53,7 +53,7 @@ You can also define a default value for a variable if it is not set.
 
 ----
 
-**Running PHP Blocks**
+### **Running PHP Blocks**
 
 ```blade
 @php
@@ -65,7 +65,7 @@ You can also define a default value for a variable if it is not set.
 
 ----
 
-**If Statements**
+### **If Statements**
 
 ```blade
 @if($foo)
@@ -93,7 +93,7 @@ You can also define a default value for a variable if it is not set.
 
 ----
 
-**Switch Statements**
+### **Switch Statements**
 
 ```blade
 @switch($i)
@@ -126,7 +126,7 @@ You can also define a default value for a variable if it is not set.
 
 ----
 
-**For Loops**
+### **For Loops**
 
 ```blade
 @for($i = 0; $i < 10; $i++)
@@ -145,7 +145,7 @@ You can also define a default value for a variable if it is not set.
 
 ----
 
-**Foreach Loops**
+### **Foreach Loops**
 
 ```blade
 @foreach($users as $user)
@@ -165,7 +165,7 @@ You can also define a default value for a variable if it is not set.
 
 ----
 
-**Forelse Loops**
+### **Forelse Loops**
 
 ```blade
 @forelse($users as $user)
@@ -189,7 +189,7 @@ You can also define a default value for a variable if it is not set.
 
 ----
 
-**While Loops**
+### **While Loops**
 
 ```blade
 @while($i < 10)
@@ -209,7 +209,7 @@ You can also define a default value for a variable if it is not set.
 
 **[Read more about While & Loops at the BladeOne Wiki](https://github.com/EFTEC/BladeOne/wiki/Template-loop#whilecondition--endwhile)**
 
-**Include**
+### **Include**
 
 ```blade
 @include('path.to.view')
@@ -232,7 +232,7 @@ You can also define a default value for a variable if it is not set.
 
 Out of the box, Perique BladeOne comes bundled with a selection of HTML helpers which make it much easier to generate HTML such as Forms, Links, Images, and more.
 
-**Form**
+### **Form**
 
 ```blade
 @form(method="post" action="testform")
@@ -258,7 +258,7 @@ Out of the box, Perique BladeOne comes bundled with a selection of HTML helpers 
 
 There are a number built in BladeOne Directives which have been adapted from the original BladeOne package, to work better with Perique and WordPress.
 
-**Auth**
+### **Auth**
 
 ```blade
 @auth
@@ -302,7 +302,7 @@ There are a number built in BladeOne Directives which have been adapted from the
 > The above will output `(not administrator)` if the current user is not an administrator.
 ----
 
-**Permissions**
+### **Permissions**
 
 ```blade
 @can(permission="edit_posts")
@@ -314,7 +314,7 @@ There are a number built in BladeOne Directives which have been adapted from the
 
 > This works using WP User Capabilities, so you can use any of the [built in capabilities](https://codex.wordpress.org/Roles_and_Capabilities#Capabilities) or [create your own](https://codex.wordpress.org/Roles_and_Capabilities#Capability_vs._Role_Table).
 
-**View Model**
+### **View Model**
 
 ```blade
 @viewModel(new View_Model('some.template', ['key' => 'value']))
@@ -328,7 +328,7 @@ There are a number built in BladeOne Directives which have been adapted from the
 
 ----
 
-**Component**
+### **Component**
 
 ```blade
 @viewComponent(new SomeComponent('arg1', 12.45))

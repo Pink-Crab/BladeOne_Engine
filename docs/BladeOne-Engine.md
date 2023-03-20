@@ -91,7 +91,7 @@ $class->render('longpath', ['data' => $data]);
  
 This allows for the creation of simpler and short class names for use in templates.
 ```php
-$bladeone_engine->add_alias_classes('MyClass', 'Namespace\\For\\Class');
+$bladeone_engine->add_alias_classes('MyClass', 'Namespace\\For\\Class\\MyClass');
 ```
 ```html
 <!-- Called like so in your views. -->

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Tests the BladeOne Provider.
+ * Tests the BladeOne_Engine.
  *
  * @since 0.1.0
  * @author Glynn Quelch <glynn.quelch@gmail.com>
@@ -365,7 +365,7 @@ class Test_BladeOne_Engine extends WP_UnitTestCase {
 		$provider = $this->get_engine();
 
 		$blade = $provider->get_blade();
-		$this->assertArrayHasKey( 'component', Objects::get_property( $blade, 'customDirectivesRT' ) );
+		$this->assertArrayHasKey( 'viewComponent', Objects::get_property( $blade, 'customDirectivesRT' ) );
 		$this->assertArrayHasKey( 'viewModel', Objects::get_property( $blade, 'customDirectivesRT' ) );
 	}
 

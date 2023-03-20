@@ -17,22 +17,14 @@ use WP_UnitTestCase;
 use eftec\bladeone\BladeOne;
 use Gin0115\WPUnit_Helpers\Output;
 use Gin0115\WPUnit_Helpers\Objects;
-use PinkCrab\Perique\Application\App;
 use PinkCrab\BladeOne\BladeOne_Engine;
-use PinkCrab\Perique\Application\Hooks;
-use PinkCrab\BladeOne\PinkCrab_BladeOne;
-use PinkCrab\Perique\Services\View\View;
-use PinkCrab\BladeOne\BladeOne_Bootstrap;
-use PinkCrab\BladeOne\Tests\Fixtures\Input;
 use PinkCrab\Perique\Interfaces\Renderable;
 use PinkCrab\Perique\Application\App_Factory;
-use PinkCrab\Perique\Services\View\PHP_Engine;
-use PinkCrab\BladeOne\Abstract_BladeOne_Config;
 use PinkCrab\BladeOne\BladeOne as BladeOne_Module;
-use PinkCrab\BladeOne\Tests\Fixtures\Mock_Controller;
-use PinkCrab\BladeOne\Tests\Fixtures\Mock_Blade_Config;
-use PinkCrab\BladeOne\Tests\Fixtures\Mock_Custom_Blade_One_Instance;
 
+/**
+ * @group application
+ */
 class Test_As_Application extends WP_UnitTestCase {
 
 	use App_Helper_Trait;
@@ -45,6 +37,7 @@ class Test_As_Application extends WP_UnitTestCase {
 	public function tear_down(): void {
 		parent::tear_down();
 		$this->unset_app_instance();
+		wp_set_current_user( 0 );
 	}
 
 	/** @testdox It should be possible to render a template using only its filename and pass values to the view to be rendered */
@@ -245,6 +238,117 @@ class Test_As_Application extends WP_UnitTestCase {
 		// Assert the compiled path is correct.
 		$path = \wp_upload_dir()['basedir'] . '/blade-cache';
 		$this->assertEquals( $path, Objects::get_property( $blade, 'compiledPath' ) );
+	}
+
+	/** @testdox It should be possible to get the details of a logged in user */
+	public function test_can_get_user_details(): void {
+		$user = $this->factory()->user->create_and_get( array( 'role' => 'administrator' ) );
+		wp_set_current_user( $user->ID );
+
+		$app = $this->pre_populated_app_provider();
+
+		$engine = $app::view()->engine()->get_blade();
+// dd($engine);
+		$current_user        = $engine->getCurrentUser();
+		$current_role        = $engine->getCurrentRole();
+		$current_permissions = $engine->getCurrentPermission();
+
+		// Check all exist.
+		$this->assertNotEquals( '', $current_user );
+		$this->assertSame( $user->user_login, $current_user );
+
+		$this->assertNotEquals( '', $current_role );
+		$this->assertSame( 'administrator', $current_role );
+
+		$this->assertNotEmpty( $current_permissions );
+		// Loop through all permissions of user and check they are in the array.
+		foreach ( $user->allcaps as $cap => $value ) {
+			$this->assertContains( $cap, $current_permissions );
+		}
+
+	}
+
+	/** @testdox When no user is logged in, this should be reflected in blades auth data. */
+	public function test_can_get_user_details_when_no_user_logged_in(): void {
+		wp_set_current_user( 0 );
+		$app = $this->pre_populated_app_provider();
+
+		$engine = $app::view()->engine()->get_blade();
+
+
+		$current_user        = $engine->getCurrentUser();
+		$current_role        = $engine->getCurrentRole();
+		$current_permissions = $engine->getCurrentPermission();
+
+		// Check all exist.
+		$this->assertEquals( '', $current_user );
+
+		$this->assertEquals( '', $current_role );
+
+		$this->assertEmpty( $current_permissions );
+	}
+
+	/** @testdox It should be possible to use WP user roles to make some aspects of the template render logged in as administrator*/
+	public function test_user_auth_logged_in_rendered_admin(): void {
+		$user = $this->factory()->user->create_and_get( array( 'role' => 'administrator' ) );
+		wp_set_current_user( $user->ID );
+
+		$app = $this->pre_populated_app_provider();
+
+		// using @auth directive with role
+		$output = $app::view()->render( 'testauthrole', array(), false );
+		$this->assertStringContainsString( 'Administrator', $output );
+
+		// using @auth directive no role, just "logged in"
+		$output = $app::view()->render( 'testauthany', array(), false );
+		$this->assertStringContainsString( 'Is Logged In', $output );
+		$this->assertStringContainsString( 'Isn\'t Guest', $output );
+
+		// using @can directive
+		$output = $app::view()->render( 'testroles', array(), false );
+		$this->assertStringContainsString( 'can_manage_options', $output );
+	}
+
+	/** @testdox It should be possible to use WP user roles to make some aspects of the template render logged in as edior*/
+	public function test_user_auth_logged_in_rendered_editor(): void {
+		$user = $this->factory()->user->create_and_get( array( 'role' => 'editor' ) );
+		wp_set_current_user( $user->ID );
+
+		$app = $this->pre_populated_app_provider();
+
+		// using @auth directive with role
+		$output = $app::view()->render( 'testauthrole', array(), false );
+		$this->assertStringContainsString( 'Editor', $output );
+
+		// using @auth directive no role, just "logged in"
+		$output = $app::view()->render( 'testauthany', array(), false );
+		$this->assertStringContainsString( 'Is Logged In', $output );
+		$this->assertStringContainsString( 'Isn\'t Guest', $output );
+
+		// using @can directive
+		$output = $app::view()->render( 'testroles', array(), false );
+		$this->assertStringContainsString( 'can_edit_posts', $output );
+	}
+
+	/** @testdox It should be possible to use WP user roles to make some aspects of the template render */
+	public function test_user_auth_logged_out_rendered(): void {
+		wp_set_current_user( 0 );
+
+		$app = $this->pre_populated_app_provider();
+
+		// using @auth directive with role
+		$output = $app::view()->render( 'testauthrole', array(), false );
+		$this->assertStringContainsString( '(not administrator)', $output );
+		$this->assertStringContainsString( '(neither administrator or editor)', $output );
+
+		// using @auth directive no role, just "logged in"
+		$output = $app::view()->render( 'testauthany', array(), false );
+		$this->assertStringContainsString( 'Isn\'t Logged In', $output );
+		$this->assertStringContainsString( 'Is Guest', $output );
+
+		// using @can directive
+		$output = $app::view()->render( 'testroles', array(), false );
+		$this->assertStringContainsString( 'cannot_manage_options', $output );
 	}
 
 }

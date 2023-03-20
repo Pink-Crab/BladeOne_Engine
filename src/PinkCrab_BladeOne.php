@@ -22,9 +22,10 @@ declare( strict_types=1 );
  * @package PinkCrab\BladeOne_Engine
  */
 
+// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+
 namespace PinkCrab\BladeOne;
 
-use php_user_filter;
 use eftec\bladeone\BladeOne;
 use eftec\bladeonehtml\BladeOneHtml;
 use PinkCrab\Perique\Application\App;
@@ -47,20 +48,10 @@ class PinkCrab_BladeOne extends BladeOne {
 		parent::__construct( $template_path, $compiled_path, $mode );
 
 		// Add the viewModel directive.
-		$this->directiveRT(
-			'viewModel',
-			function( $expression ) {
-				return $this->view_model( $expression, true );
-			}
-		);
+		$this->directiveRT( 'viewModel', fn( $expression ) => $this->view_model( $expression, true ) );
 
 		// Add the component directive.
-		$this->directiveRT(
-			'component',
-			function( $expression ) {
-				return $this->component( $expression, true );
-			}
-		);
+		$this->directiveRT( 'viewComponent', fn( $expression ) => $this->component( $expression, true ) );
 	}
 
 	/**
@@ -150,5 +141,69 @@ class PinkCrab_BladeOne extends BladeOne {
 		return $view->view_model( $view_model, $print );
 	}
 
+	/**
+	 * Compile the auth statements into valid PHP.
+	 *
+	 * @param string $expression
+	 * @return string
+	 */
+	protected function compileAuth( $expression = '' ): string {
+		$role = $this->stripParentheses( $expression );
+		if ( $role === '' ) {
+			return $this->phpTag . 'if(!PinkCrab\FunctionConstructors\Strings\isBlank($this->currentUser)): ?>';
+		}
+
+		return $this->phpTag . "if(!PinkCrab\FunctionConstructors\Strings\isBlank(\$this->currentUser) && \$this->currentRole==$role): ?>";
+	}
+
+	/**
+	 * Compile the elseauth statements into valid PHP.
+	 *
+	 * @param string $expression
+	 * @return string
+	 */
+	protected function compileElseAuth( $expression = '' ): string {
+		$role = $this->stripParentheses( $expression );
+		if ( $role === '' ) {
+			return $this->phpTag . 'else: ?>';
+		}
+
+		return $this->phpTag . "elseif(!PinkCrab\FunctionConstructors\Strings\isBlank(\$this->currentUser) && \$this->currentRole==$role): ?>";
+	}
+
+	/**
+	 * Compile the guest statements into valid PHP.
+	 *
+	 * @param string|null $expression
+	 * @return string
+	 */
+	protected function compileGuest( $expression = null ): string {
+
+		if ( $expression === null ) {
+			return $this->phpTag . 'if(PinkCrab\FunctionConstructors\Strings\isBlank($this->currentUser)): ?>';
+		}
+
+		$role = $this->stripParentheses( $expression );
+		if ( $role === '' ) {
+			return $this->phpTag . 'if(PinkCrab\FunctionConstructors\Strings\isBlank($this->currentUser)): ?>';
+		}
+
+		return $this->phpTag . "if(PinkCrab\FunctionConstructors\Strings\isBlank(\$this->currentUser) || \$this->currentRole!=$role): ?>";
+	}
+
+	/**
+	 * Compile the else statements into valid PHP.
+	 *
+	 * @param string|null $expression
+	 * @return string
+	 */
+	protected function compileElseGuest( $expression ): string {
+		$role = $this->stripParentheses( $expression );
+		if ( $role === '' ) {
+			return $this->phpTag . 'else: ?>';
+		}
+
+		return $this->phpTag . "elseif(PinkCrab\FunctionConstructors\Strings\isBlank(\$this->currentUser) || \$this->currentRole!=$role): ?>";
+	}
 
 }

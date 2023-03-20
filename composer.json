@@ -38,9 +38,10 @@
     },
     "require": {
         "php": ">=7.4.0",
-        "pinkcrab/perique-framework-core": "dev-feature/v2-sandbox",
+        "pinkcrab/perique-framework-core": "2.0.*",
         "eftec/bladeone": "4.*",
-        "eftec/bladeonehtml": "2.*"
+        "eftec/bladeonehtml": "2.*",
+        "pinkcrab/function-constructors": "0.2.*"
     },
     "scripts": {
         "test": "vendor/bin/phpunit --colors=always --testdox --coverage-clover clover.xml",
@@ -55,5 +56,7 @@
             "roots/wordpress-core-installer": true,
             "infection/extension-installer": true
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

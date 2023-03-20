@@ -24,19 +24,14 @@ declare( strict_types=1 );
 
 namespace PinkCrab\BladeOne;
 
-use Dice\Dice;
 use PinkCrab\Loader\Hook_Loader;
-use eftec\bladeone\BladeOne as Blade;
 use PinkCrab\BladeOne\BladeOne_Engine;
-use PinkCrab\Perique\Application\Hooks;
 use PinkCrab\Perique\Interfaces\Module;
 use PinkCrab\BladeOne\PinkCrab_BladeOne;
 use PinkCrab\Perique\Services\View\View;
 use PinkCrab\Perique\Interfaces\Renderable;
 use PinkCrab\Perique\Application\App_Config;
 use PinkCrab\Perique\Interfaces\DI_Container;
-use PinkCrab\Perique\Services\View\PHP_Engine;
-use PinkCrab\BladeOne\Abstract_BladeOne_Config;
 
 class BladeOne implements Module {
 
@@ -109,7 +104,9 @@ class BladeOne implements Module {
 			$this->mode
 		);
 
-		// Create the compilled path if it does not exist.
+		$instance->setAuth( ...$this->get_auth_data() );
+
+		// Create the compiled path if it does not exist.
 		if ( ! \file_exists( $compiled_path ) ) {
 			mkdir( $compiled_path );
 		}
@@ -123,6 +120,7 @@ class BladeOne implements Module {
 				'call'            => array(
 					array( 'allow_pipe', array() ),
 				),
+				'shared'          => true,
 			)
 		);
 
@@ -140,9 +138,31 @@ class BladeOne implements Module {
 				'substitutions' => array(
 					Renderable::class => BladeOne_Engine::class,
 				),
+				'shared'        => true,
 			)
 		);
 
+	}
+
+	/**
+	 * Gets the current logged in user details
+	 *
+	 * @return array{0:string, 1:string, 2:string[]}
+	 */
+	private function get_auth_data(): array {
+
+		// @codeCoverageIgnoreStart
+		if ( ! function_exists( 'wp_get_current_user' ) ) {
+			require_once ABSPATH . 'wp-includes/pluggable.php';
+		}
+		// @codeCoverageIgnoreEnd
+
+		$user = \wp_get_current_user();
+		return array(
+			0 !== $user->ID ? $user->user_login : '',
+			0 !== $user->ID ? $user->roles[0] : '',
+			0 !== $user->ID ? array_keys( array_filter( $user->allcaps ) ) : array(),
+		);
 	}
 
 	/**
@@ -155,15 +175,18 @@ class BladeOne implements Module {
 	 */
 	public function pre_register( App_Config $config, Hook_Loader $loader, DI_Container $di_container ): void { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInImplementedInterfaceBeforeLastUsed
 
+		$provider = $di_container->create( BladeOne_Engine::class );
+
+		// If dont have an instance of BladeOne_Engine, return.
+		if ( ! $provider instanceof BladeOne_Engine ) {
+			throw new \RuntimeException( 'Unable to create BladeOne_Engine instance to configure instance' );
+		}
+
 		// Pass the config to the provider, if set.
 		if ( ! is_null( $this->config ) ) {
-			$provider = $di_container->create( Renderable::class );
-
-			// if we have an instance of BladeOne_Engine, pass the config.
-			if ( $provider instanceof BladeOne_Engine ) {
-				\call_user_func( $this->config, $provider );
-			}
+			\call_user_func( $this->config, $provider );
 		}
+
 	}
 
 	## Unused methods

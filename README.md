@@ -210,6 +210,7 @@ Out of the box PinkCrab_BladeOne comes with the BladeOneHTML trait added, giving
 * [BladeOneHTML](https://github.com/EFTEC/BladeOneHtml)
 * [viewModel](docs/Bladeone-Template-Useage.md#view-model)
 * [viewComponent](docs/Bladeone-Template-Useage.md#component)
+* [nonce](docs/Bladeone-Template-Useage.md#nonce)
 
 ---
 

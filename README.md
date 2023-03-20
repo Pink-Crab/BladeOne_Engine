@@ -48,6 +48,48 @@ By default the following are assumed
 * `path/wp-content/uploads/blade-cache` as the cache path
 * `MODE_AUTO`
 
+## Usage ##
+
+Just like the native PHP_Engine found with Perique, you can inject the View service into any class and use it to render a view. 
+   
+```php
+class Some_Class {
+   
+      public function __construct( View $view ) {
+         $this->view = $view;
+      }
+   
+      public function render_view() {
+         return $this->view->render('some.path.view_name', ['data' => 'to pass']);
+      }
+}
+```
+The above would render the template `path/to/project/root/views/some/path/view_name.blade.php` with access to $data in the view which would be `to pass`.
+
+```blade
+<p>{{ $data }}</p>
+```
+Would render as
+```html
+<p>to pass</p>
+```
+
+It is fully possible to make use of the template inheritance and other blade features. 
+```blade
+<div class="wrap">
+   @include('partials.header')
+   @yield('content')
+   @include('partials.footer')
+</div>
+```
+
+```blade
+@extends('layouts.default')
+@section('content')
+   i am the home page
+@stop
+
+```
 
 ## Configuring BladeOne ##
 

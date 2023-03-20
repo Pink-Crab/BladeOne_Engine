@@ -347,7 +347,7 @@ You can render a WP Nonce field using the `@nonce` directive.
 ```blade
 @nonce("my_action")
 ```
-The above will render a nonce field with the action `my_action` and the name `_pcnonce`. *Including the `_wp_http_referer` field
+The above will render a nonce field with the action `my_action` and the name `_pcnonce`. *Including the `_wp_http_referer` field*
 
 
 ```blade

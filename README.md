@@ -230,15 +230,24 @@ $this->view->engine()->some_method($data);
 // As static 
 BladeOne_Engine::some_method($data);
 ```
+
+The can also be called in templates.
+```php
+{$this->some_method($data)}
+
+// Or
+{BladeOne_Engine::some_method($data)}
+```
+
 > For the complete list of methods, please visit https://github.com/EFTEC/BladeOne/wiki/Methods-of-the-class
 
 
-**If you want access none static methods using a static means, you can use**
+## Static Access ##
 ```php 
 // Using the App's View method to access none static methods on the fly.
 App::view()->engine()->some_method($data);
 ```
-> calling` engine()` on view, will return the underlying rendering engine used, in this case the BladeOne_Provider. 
+> calling `engine()` on view, will return the underlying rendering engine used, in this case  `PinkCrab_BladeOne`. 
 
 > Of course you can set the engine it self as a global variable using `$provider->share('view_helper', [App::view(), 'engine'])`. Then you can use `{$view_helper->some_method(\$data)}` in your view.
 

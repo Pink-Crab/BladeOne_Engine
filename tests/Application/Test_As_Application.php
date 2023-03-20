@@ -248,7 +248,7 @@ class Test_As_Application extends WP_UnitTestCase {
 		$app = $this->pre_populated_app_provider();
 
 		$engine = $app::view()->engine()->get_blade();
-// dd($engine);
+		// dd($engine);
 		$current_user        = $engine->getCurrentUser();
 		$current_role        = $engine->getCurrentRole();
 		$current_permissions = $engine->getCurrentPermission();
@@ -274,7 +274,6 @@ class Test_As_Application extends WP_UnitTestCase {
 		$app = $this->pre_populated_app_provider();
 
 		$engine = $app::view()->engine()->get_blade();
-
 
 		$current_user        = $engine->getCurrentUser();
 		$current_role        = $engine->getCurrentRole();
@@ -350,5 +349,37 @@ class Test_As_Application extends WP_UnitTestCase {
 		$output = $app::view()->render( 'testroles', array(), false );
 		$this->assertStringContainsString( 'cannot_manage_options', $output );
 	}
+
+	/**
+	 * @testdox It should be possible to add a WP Nonce field to a template.
+	 * @dataProvider nonce_provider
+	 */
+	public function test_can_add_nonce_to_template( string $action, string $name, bool $has_ref ): void {
+		$app    = $this->pre_populated_app_provider();
+		$output = $app::view()->render( 'testnonce', array( 'type' => $action ), false );
+
+		// Regenerate the nonce to make sure it's not the same as the one in the template.
+		$nonce = wp_create_nonce( $action );
+
+		$this->assertStringContainsString( $nonce, $output );
+		$this->assertStringContainsString( 'id="' . $name . '"', $output );
+		$this->assertStringContainsString( 'name="' . $name . '"', $output );
+
+		if ( $has_ref ) {
+			$this->assertStringContainsString( '_wp_http_referer', $output );
+		} else {
+			$this->assertStringNotContainsString( '_wp_http_referer', $output );
+		}
+	}
+
+	/** DataProvider for test_can_add_nonce_to_template */
+	public function nonce_provider(): array {
+		return array(
+			array( 'with_ref_nonce', 'with_referer', true ),
+			array( 'without_ref_nonce', 'without_referer', false ),
+			array( 'def_ref_nonce', '_pcnonce', true ),
+		);
+	}
+
 
 }

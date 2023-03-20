@@ -181,7 +181,7 @@ class Test_BladeOne_Engine extends WP_UnitTestCase {
 		);
 
 		$blade = $provider->get_blade();
-		$this->assertCount( 3, Objects::get_property( $blade, 'customDirectives' ) );
+		$this->assertCount( 4, Objects::get_property( $blade, 'customDirectives' ) );
 		$this->assertArrayHasKey( 'foo', Objects::get_property( $blade, 'customDirectives' ) );
 	}
 
@@ -196,7 +196,7 @@ class Test_BladeOne_Engine extends WP_UnitTestCase {
 		);
 
 		$blade = $provider->get_blade();
-		$this->assertCount( 3, Objects::get_property( $blade, 'customDirectivesRT' ) );
+		$this->assertCount( 4, Objects::get_property( $blade, 'customDirectivesRT' ) );
 		$this->assertArrayHasKey( 'bar', Objects::get_property( $blade, 'customDirectivesRT' ) );
 	}
 

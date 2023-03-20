@@ -151,14 +151,7 @@ You can also hold the config in its own class and use that.
 class BladeOneConfig {
    public function __invoke( BladeOne $blade ): BladeOne {
       return $blade
-         ->template_path('path/to/custom/views')
-         ->compiled_path('path/to/custom/cache')
-         ->mode( BladeOne::MODE_DEBUG )
-         ->config( fn( BladeOne_Engine $engine ) => $engine
-            ->set_compiled_extension('.php')
-            ->directive('test', fn($e) =>'test')
-            ->allow_pipe( false )
-         );
+         // The setup.
    }
 }
 
@@ -214,9 +207,9 @@ Most Blade features are present, to see the full docs please visit the [EFTEC/Bl
 ## Included Components
 
 Out of the box PinkCrab_BladeOne comes with the BladeOneHTML trait added, giving access all HTML components.
-[BladeOneHTML](https://github.com/EFTEC/BladeOneHtml)
-[viewModel](docs/Bladeone-Template-Useage.md#view-model)
-[viewComponent](docs/Bladeone-Template-Useage.md#component)
+* [BladeOneHTML](https://github.com/EFTEC/BladeOneHtml)
+* [viewModel](docs/Bladeone-Template-Useage.md#view-model)
+* [viewComponent](docs/Bladeone-Template-Useage.md#component)
 
 ---
 

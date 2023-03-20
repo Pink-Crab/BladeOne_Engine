@@ -1,5 +1,5 @@
 
-# Release Candidate 1.0.0-RC1
+# Release Candidate 1.0.0-RC2
 ---
 
 # BladeOne_Provider
@@ -248,11 +248,11 @@ App::view()->engine()->some_method($data);
 ***
 
 ## Dependencies ##
-* [BladeOne 4.1](https://github.com/EFTEC/BladeOne)
-* [BladeOne HTML 2.0](https://github.com/eftec/BladeOneHtml)
+* [BladeOne V4](https://github.com/EFTEC/BladeOne)
+* [BladeOne HTML V2](https://github.com/eftec/BladeOneHtml)
 
 ## Requires ##
-* [PinkCrab Perique Framework V2.0.0 and above.](https://github.com/Pink-Crab/Perqiue-Framework)
+* [PinkCrab Perique Framework V2 and above.](https://github.com/Pink-Crab/Perqiue-Framework)
 * PHP7.4+
 
 ## License ##
@@ -262,8 +262,12 @@ http://www.opensource.org/licenses/mit-license.html
 
 ## Previous Perique Support ##
 
-* For support of all versions befor Perique V2, please use the [BladeOne_Provider](https://github.com/Pink-Crab/Perique-BladeOne-Provider)
+* For support of all versions before Perique V2, please use the [BladeOne_Provider](https://github.com/Pink-Crab/Perique-BladeOne-Provider)
 
 ## Change Log ##
 * 1.0.0 - Migrated over from the Perique V2 Prep branch of BladeOne_Provider.
+  * New Features
+  * Auth and Permissions now hooked up and based on the current user.
+  * Perique V2 Module structure.
+  * WP Nonce support. 
 

@@ -86,7 +86,7 @@ It is fully possible to make use of the template inheritance and other blade fea
 ```blade
 @extends('layouts.default')
 @section('content')
-   i am the home page
+   Some content
 @stop
 
 ```
@@ -209,15 +209,14 @@ Most Blade features are present, to see the full docs please visit the [EFTEC/Bl
 * [form](docs/Bladeone-Template-Useage.md#form)
 * [auth](docs/Bladeone-Template-Useage.md#auth)
 * [permissions](docs/Bladeone-Template-Useage.md#permissions)
-* [view models](docs/Bladeone-Template-Useage.md#view-model)
-* [component](docs/Bladeone-Template-Useage.md#component)
+
 
 ## Included Components
 
 Out of the box PinkCrab_BladeOne comes with the BladeOneHTML trait added, giving access all HTML components.
 [BladeOneHTML](https://github.com/EFTEC/BladeOneHtml)
-[viewModel]()
-[viewComponent]()
+[viewModel](docs/Bladeone-Template-Useage.md#view-model)
+[viewComponent](docs/Bladeone-Template-Useage.md#component)
 
 ---
 

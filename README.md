@@ -166,52 +166,52 @@ $app = ( new App_Factory('path/to/project/root') )
 ## BladeOne_Module Config
 
 You can call the following methods on the BladeOne Module to configure the BladeOne Module.
-* [template_path](docs/BladeOne-Module#public-function-template_path-string-template_path-)
-* [compiled_path](docs/BladeOne-Module#public-function-compiled_path-string-compiled_path-)
-* [mode](docs/BladeOne-Module#public-function-mode-int-mode-)
-* [config](docs/BladeOne-Module#public-function-configcallable-config)
+* [template_path](docs/BladeOne-Module.md#public-function-template_path-string-template_path-)
+* [compiled_path](docs/BladeOne-Module.md#public-function-compiled_path-string-compiled_path-)
+* [mode](docs/BladeOne-Module.md#public-function-mode-int-mode-)
+* [config](docs/BladeOne-Module.md#public-function-configcallable-config)
 
 ## BladeOne_Engine Config
 
 You can call the following methods on the BladeOne_Engine to configure the BladeOne_Engine.
-* [allow_pipe](docs/BladeOne-Engine#public-function-allow_pipe-bool-bool--true-)
-* [directive](docs/BladeOne-Engine#public-function-directive-string-name-callable-handler-)
-* [directive_rt](/docs/BladeOne-Engine#public-function-directive_rt-string-name-callable-handler)
-* [add_include](docs/BladeOne-Engine#public-function-add_include-view-alias--null-)
-* [add_class_alias](docs/BladeOne-Engine#public-function-add_alias_classes-alias_name-class_with_namespace-)
-* [share](docs/BladeOne-Engine#public-function-share-stringarray-var_name-value--null-)
-* [set_file_extension](docs/BladeOne-Engine#public-function-set_file_extension-string-file_extension-)
-* [set_compiled_extension](docs/BladeOne-Engine#public-function-set_compiled_extension-string-file_extension-)
-* [set_esc_function](docs/BladeOne-Engine#public-function-set_esc_function-callable-esc-)
+* [allow_pipe](docs/BladeOne-Engine.md#public-function-allow_pipe-bool-bool--true-)
+* [directive](docs/BladeOne-Engine.md#public-function-directive-string-name-callable-handler-)
+* [directive_rt](/docs/BladeOne-Engine.md#public-function-directive_rt-string-name-callable-handler)
+* [add_include](docs/BladeOne-Engine.md#public-function-add_include-view-alias--null-)
+* [add_class_alias](docs/BladeOne-Engine.md#public-function-add_alias_classes-alias_name-class_with_namespace-)
+* [share](docs/BladeOne-Engine.md#public-function-share-stringarray-var_name-value--null-)
+* [set_file_extension](docs/BladeOne-Engine.md#public-function-set_file_extension-string-file_extension-)
+* [set_compiled_extension](docs/BladeOne-Engine.md#public-function-set_compiled_extension-string-file_extension-)
+* [set_esc_function](docs/BladeOne-Engine.md#public-function-set_esc_function-callable-esc-)
 
 ## Blade Templating
 
 Most Blade features are present, to see the full docs please visit the [EFTEC/BladeOne wiki](https://github.com/EFTEC/BladeOne/wiki)
 
-* Echo data [escaped](docs/Bladeone-Template-Useage#echo-string-escaped) or [unescaped](docs/Bladeone-Template-Useage#echo-string-unescaped)
-* [Call PHP Function](docs/Bladeone-Template-Useage#calling-php-functions)
-* [Running PHP Block](docs/Bladeone-Template-Useage#running-php-blocks)
+* Echo data [escaped](docs/Bladeone-Template-Useage.md#echo-string-escaped) or [unescaped](docs/Bladeone-Template-Useage.md#echo-string-unescaped)
+* [Call PHP Function](docs/Bladeone-Template-Useage.md#calling-php-functions)
+* [Running PHP Block](docs/Bladeone-Template-Useage.md#running-php-blocks)
 * *Conditionals*
-  * [if, elseif, else](docs/Bladeone-Template-Useage#if-statements)
-  * [switch](docs/Bladeone-Template-Useage#switch-statements)
+  * [if, elseif, else](docs/Bladeone-Template-Useage.md#if-statements)
+  * [switch](docs/Bladeone-Template-Useage.md#switch-statements)
 * *Loops*
-  * [for](docs/Bladeone-Template-Useage#for-loops)
-  * [foreach](docs/Bladeone-Template-Useage#foreach-loops)  
-  * [forelse](docs/Bladeone-Template-Useage#forelse-loops)
-  * [while](docs/Bladeone-Template-Useage#while-loops)
-* [include](docs/Bladeone-Template-Useage#include)
-* [form](docs/Bladeone-Template-Useage#form)
-* [auth](docs/Bladeone-Template-Useage#auth)
-* [permissions](docs/Bladeone-Template-Useage#permissions)
+  * [for](docs/Bladeone-Template-Useage.md#for-loops)
+  * [foreach](docs/Bladeone-Template-Useage.md#foreach-loops)  
+  * [forelse](docs/Bladeone-Template-Useage.md#forelse-loops)
+  * [while](docs/Bladeone-Template-Useage.md#while-loops)
+* [include](docs/Bladeone-Template-Useage.md#include)
+* [form](docs/Bladeone-Template-Useage.md#form)
+* [auth](docs/Bladeone-Template-Useage.md#auth)
+* [permissions](docs/Bladeone-Template-Useage.md#permissions)
 
 
 ## Included Components
 
 Out of the box PinkCrab_BladeOne comes with the BladeOneHTML trait added, giving access all HTML components.
 * [BladeOneHTML](https://github.com/EFTEC/BladeOneHtml)
-* [viewModel](docs/Bladeone-Template-Useage#view-model)
-* [viewComponent](docs/Bladeone-Template-Useage#component)
-* [nonce](docs/Bladeone-Template-Useage#nonce)
+* [viewModel](docs/Bladeone-Template-Useage.md#view-model)
+* [viewComponent](docs/Bladeone-Template-Useage.md#component)
+* [nonce](docs/Bladeone-Template-Useage.md#nonce)
 
 ---
 

@@ -1,9 +1,10 @@
 
 # Release Candidate 1.0.0-RC2
 ---
+![logo](docs/Perique_BladeOne_Card.png "Pink Crab")
 
-# BladeOne_Provider
-A BladeOne Provider for the PinkCrab Renderable Interface.
+# BladeOne Engine
+A BladeOne Implementation for the PinkCrab Renderable Interface.
 
 [![Latest Stable Version](http://poser.pugx.org/pinkcrab/bladeone-engine/v)](https://packagist.org/packages/pinkcrab/bladeone-engine)
 [![Total Downloads](http://poser.pugx.org/pinkcrab/bladeone-engine/downloads)](https://packagist.org/packages/pinkcrab/bladeone-engine)

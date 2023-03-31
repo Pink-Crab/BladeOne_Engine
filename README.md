@@ -253,7 +253,7 @@ App::view()->engine()->some_method($data);
 It is possible to extend BladeOne via other plugins, if you would like to add additional functionality by adding custom directives, or adding additional methods to the BladeOne_Engine class. You can do this by using the `PinkCrab_BladeOne::SETUP_CONFIG` action and add any additional configs such as directives.
 
 ```php
-add_action( PinkCrab_BladeOne::SETUP_CONFIG, function( BladeOne_Engine $engine ) {
+add_action( PinkCrab_BladeOne::SETUP_CONFIG, function( PinkCrab_BladeOne $engine ) {
     $engine->directive( 'my_directive', function( $expression ) {
         return "<?php echo 'Hello World'; ?>";
     } );

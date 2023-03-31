@@ -36,6 +36,8 @@ use PinkCrab\Perique\Services\View\Component\Component;
 class PinkCrab_BladeOne extends BladeOne {
 	use BladeOneHtml;
 
+	public const SETUP_CONFIG = 'PinkCrab/BladeOne_Engine/Setup_Config';
+
 	/**
 	 * Bob the constructor.
 	 * The folder at $compiled_path is created in case it doesn't exist.
@@ -65,6 +67,9 @@ class PinkCrab_BladeOne extends BladeOne {
 				);
 			}
 		);
+
+		// Allow other plugins to add their own directives.
+		\do_action( self::SETUP_CONFIG, $this );
 	}
 
 	/**

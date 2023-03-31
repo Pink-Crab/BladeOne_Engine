@@ -18,6 +18,7 @@ use eftec\bladeone\BladeOne;
 use Gin0115\WPUnit_Helpers\Output;
 use Gin0115\WPUnit_Helpers\Objects;
 use PinkCrab\BladeOne\BladeOne_Engine;
+use PinkCrab\BladeOne\PinkCrab_BladeOne;
 use PinkCrab\Perique\Interfaces\Renderable;
 use PinkCrab\Perique\Application\App_Factory;
 use PinkCrab\BladeOne\BladeOne as BladeOne_Module;
@@ -69,6 +70,15 @@ class Test_As_Application extends WP_UnitTestCase {
 
 	/** @testdox It should be possible to configure the template and compiled paths, mode and access the BladeOne_Engine from the Modules config callback. */
 	public function test_configure_bladeone_module() {
+
+		// Test the config action.
+		add_action(
+			PinkCrab_BladeOne::SETUP_CONFIG,
+			function( PinkCrab_BladeOne $blade_instance ) {
+				$this->assertEquals( BladeOne::MODE_DEBUG, $blade_instance->getMode() );
+			}
+		);
+
 		$app = ( new App_Factory( \FIXTURES_PATH ) )
 			->default_setup()
 			->module(

@@ -56,7 +56,5 @@
             "roots/wordpress-core-installer": true,
             "infection/extension-installer": true
         }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }

@@ -43,8 +43,8 @@
     "require": {
         "php": ">=7.4.0",
         "pinkcrab/perique-framework-core": "2.0.*",
-        "eftec/bladeone": "<=4.11",
-        "eftec/bladeonehtml": "<=2.3.2",
+        "eftec/bladeone": ">=4.12",
+        "eftec/bladeonehtml": ">=2.4",
         "pinkcrab/function-constructors": "0.2.*"
     },
     "scripts": {

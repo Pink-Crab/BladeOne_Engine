@@ -35,6 +35,9 @@ use PinkCrab\Perique\Services\View\View_Model;
 use PinkCrab\Perique\Services\View\Component\Component;
 use PinkCrab\Perique\Services\View\Component\Component_Compiler;
 
+/**
+ * BladeOne Engine for the PinkCrab Perique Framework
+ */
 class BladeOne_Engine implements Renderable {
 
 	/**
@@ -64,8 +67,8 @@ class BladeOne_Engine implements Renderable {
 	 * Static constructor with BladeOne initialisation details
 	 *
 	 * @param string|array<mixed> $template_path If null then it uses (caller_folder)/views
-	 * @param string $compiled_path If null then it uses (caller_folder)/compiles
-	 * @param int $mode =[BladeOne::MODE_AUTO,BladeOne::MODE_DEBUG,BladeOne::MODE_FAST,BladeOne::MODE_SLOW][$i]
+	 * @param string              $compiled_path If null then it uses (caller_folder)/compiles
+	 * @param integer             $mode          =[BladeOne::MODE_AUTO,BladeOne::MODE_DEBUG,BladeOne::MODE_FAST,BladeOne::MODE_SLOW][$i]
 	 * @return self
 	 */
 	public static function init(
@@ -120,13 +123,14 @@ class BladeOne_Engine implements Renderable {
 	/**
 	 * Display a view and its context.
 	 *
-	 * @param string $view
-	 * @param iterable<string, mixed> $data
-	 * @param bool $print
+	 * @param string                  $view       The view to render.
+	 * @param iterable<string, mixed> $data       The data to pass to the view.
+	 * @param boolean                 $print_mode If true it will print the view, if false it will return the view as a string.
+	 *
 	 * @return void|string
 	 */
-	public function render( string $view, iterable $data, bool $print = true ) {
-		if ( $print ) {
+	public function render( string $view, iterable $data, bool $print_mode = true ) {
+		if ( $print_mode ) {
 			print static::$blade->run( $view, (array) $data ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		} else {
 			return static::$blade->run( $view, (array) $data );
@@ -136,20 +140,24 @@ class BladeOne_Engine implements Renderable {
 	/**
 	 * Renders a view Model
 	 *
-	 * @param View_Model $view_model
+	 * @param View_Model $view_model The View Model to render
+	 * @param boolean    $print_mode If true it will print the view, if false it will return the view as a string.
+	 *
 	 * @return string|void
 	 */
-	public function view_model( View_Model $view_model, bool $print = true ) {
-		return $this->render( str_replace( array( '/', '\\' ), '.', $view_model->template() ), $view_model->data(), $print );
+	public function view_model( View_Model $view_model, bool $print_mode = true ) {
+		return $this->render( str_replace( array( '/', '\\' ), '.', $view_model->template() ), $view_model->data(), $print_mode );
 	}
 
 		/**
 	 * Renders a component.
 	 *
 	 * @param Component $component
+	 * @param boolean   $print_mode If true it will print the view, if false it will return the view as a string.
+	 *
 	 * @return string|void
 	 */
-	public function component( Component $component, bool $print = true ) {
+	public function component( Component $component, bool $print_mode = true ) {
 
 		// Throw exception of no compiler passed.
 		if ( null === $this->component_compiler ) {
@@ -158,20 +166,20 @@ class BladeOne_Engine implements Renderable {
 
 		// Compile the component.
 		$compiled = $this->component_compiler->compile( $component );
-		return $this->render( str_replace( array( '/', '\\' ), '.', $compiled->template() ), $compiled->data(), $print );
+		return $this->render( str_replace( array( '/', '\\' ), '.', $compiled->template() ), $compiled->data(), $print_mode );
 	}
 
 	/**
-	 * magic instanced method caller.
+	 * Magic instanced method caller.
 	 *
-	 * @param string $method
+	 * @param string       $method
 	 * @param array<mixed> $args
 	 * @return mixed
 	 * @throws BadMethodCallException
 	 */
 	public function __call( string $method, array $args = array() ) {
 		if ( ! $this->is_method( $method ) ) {
-			throw new BadMethodCallException( "{$method} is not a valid method on the BladeOne instance." );
+			throw new BadMethodCallException( esc_attr( "{$method} is not a valid method on the BladeOne instance." ) );
 		}
 
 		return static::$blade->{$method}( ...$args );
@@ -180,14 +188,14 @@ class BladeOne_Engine implements Renderable {
 	/**
 	 * Magic static method caller.
 	 *
-	 * @param string $method
+	 * @param string       $method
 	 * @param array<mixed> $args
 	 * @return mixed
 	 * @throws BadMethodCallException
 	 */
 	public static function __callStatic( string $method, array $args = array() ) {
 		if ( ! static::is_static_method( $method ) ) {
-			throw new BadMethodCallException( "{$method} is not a valid method on the BladeOne instance." );
+			throw new BadMethodCallException( esc_attr( "{$method} is not a valid method on the BladeOne instance." ) );
 		}
 
 		return static::$blade::{$method}( ...$args );
@@ -197,7 +205,7 @@ class BladeOne_Engine implements Renderable {
 	 * Checks if the passed method exists, is public and isnt static.
 	 *
 	 * @param string $method
-	 * @return bool
+	 * @return boolean
 	 */
 	protected function is_method( string $method ): bool {
 		$class_reflection = new ReflectionClass( static::$blade );
@@ -216,7 +224,7 @@ class BladeOne_Engine implements Renderable {
 	 * Checks if the passed method exists, is public and IS static.
 	 *
 	 * @param string $method
-	 * @return bool
+	 * @return boolean
 	 */
 	protected static function is_static_method( string $method ): bool {
 		$class_reflection = new ReflectionClass( static::$blade );
@@ -233,11 +241,11 @@ class BladeOne_Engine implements Renderable {
 	/**
 	 * Sets if piping is enabled in templates.
 	 *
-	 * @param bool $bool
+	 * @param boolean $allow_pipe
 	 * @return self
 	 */
-	public function allow_pipe( bool $bool = true ): self {
-		static::$blade->pipeEnable = $bool; //phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+	public function allow_pipe( bool $allow_pipe = true ): self {
+		static::$blade->pipeEnable = $allow_pipe; //phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		return $this;
 	}
 
@@ -292,7 +300,7 @@ class BladeOne_Engine implements Renderable {
 	/**
 	 * Set the compile mode
 	 *
-	 * @param int $mode BladeOne::MODE_AUTO, BladeOne::MODE_DEBUG, BladeOne::MODE_FAST, BladeOne::MODE_SLOW
+	 * @param integer $mode BladeOne::MODE_AUTO, BladeOne::MODE_DEBUG, BladeOne::MODE_FAST, BladeOne::MODE_SLOW
 	 * @return self
 	 */
 	public function set_mode( int $mode ): self {
@@ -311,7 +319,7 @@ class BladeOne_Engine implements Renderable {
 	 * </pre>
 	 *
 	 * @param string|array<string, mixed> $var_name It is the name of the variable or it is an associative array
-	 * @param mixed        $value
+	 * @param mixed                       $value
 	 * @return $this
 	 */
 	public function share( $var_name, $value = null ): self {
@@ -322,11 +330,11 @@ class BladeOne_Engine implements Renderable {
 	/**
 	 * Sets the function used for resolving classes with inject.
 	 *
-	 * @param callable $function
+	 * @param callable $resolver
 	 * @return $this
 	 */
-	public function set_inject_resolver( callable $function ): self {
-		static::$blade->setInjectResolver( $function );
+	public function set_inject_resolver( callable $resolver ): self {
+		static::$blade->setInjectResolver( $resolver );
 		return $this;
 	}
 
@@ -354,4 +362,3 @@ class BladeOne_Engine implements Renderable {
 		return $this;
 	}
 }
-

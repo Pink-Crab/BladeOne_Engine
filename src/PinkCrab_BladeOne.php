@@ -33,6 +33,9 @@ use PinkCrab\Perique\Services\View\View;
 use PinkCrab\Perique\Services\View\View_Model;
 use PinkCrab\Perique\Services\View\Component\Component;
 
+/**
+ * Custom BladeOne Engine with HTML Escaping
+ */
 class PinkCrab_BladeOne extends BladeOne {
 	use BladeOneHtml;
 
@@ -44,7 +47,7 @@ class PinkCrab_BladeOne extends BladeOne {
 	 *
 	 * @param string|string[] $template_path If null then it uses (caller_folder)/views
 	 * @param string          $compiled_path If null then it uses (caller_folder)/compiles
-	 * @param int             $mode         =[BladeOne::MODE_AUTO,BladeOne::MODE_DEBUG,BladeOne::MODE_FAST,BladeOne::MODE_SLOW][$i]
+	 * @param integer         $mode          =[BladeOne::MODE_AUTO,BladeOne::MODE_DEBUG,BladeOne::MODE_FAST,BladeOne::MODE_SLOW][$i]
 	 */
 	public function __construct( $template_path = null, $compiled_path = null, $mode = 0 ) {
 		parent::__construct( $template_path, $compiled_path, $mode );
@@ -58,7 +61,7 @@ class PinkCrab_BladeOne extends BladeOne {
 		// Add the WP_Nonce directive.
 		$this->directiveRT(
 			'nonce',
-			function( string $action, ?string $field = null, bool $inc_referer = true ): void {
+			function ( string $action, ?string $field = null, bool $inc_referer = true ): void {
 				\wp_nonce_field(
 					$action,
 					$field ?? '_pcnonce',
@@ -115,7 +118,7 @@ class PinkCrab_BladeOne extends BladeOne {
 	/**
 	 * Escape HTML entities in a string.
 	 *
-	 * @param int|float|string|null|mixed[]|object $value
+	 * @param integer|float|string|null|mixed[]|object $value
 	 * @return string
 	 */
 	public static function e( $value ): string {
@@ -134,29 +137,39 @@ class PinkCrab_BladeOne extends BladeOne {
 	/**
 	 * Renders  component
 	 *
-	 * @param Component $component
-	 * @param bool $print
+	 * @param Component $component  The component to render
+	 * @param boolean   $print_mode Print or Return the HTML
+	 *
 	 * @return string|void
 	 */
-	public function component( Component $component, bool $print = true ) {
-		/** @var View */
+	public function component( Component $component, bool $print_mode = true ) {
+		/**
+		 * Creates a new instance of the view.
+		 *
+		 * @var View
+		 */
 		$view = App::view();
 
-		return $view->component( $component, $print );
+		return $view->component( $component, $print_mode );
 	}
 
 	/**
 	 * Renders a view model
 	 *
-	 * @param View_Model $view_model
-	 * @param bool $print Print or Return the HTML
+	 * @param View_Model $view_model The view model to render
+	 * @param boolean    $print_mode Print or Return the HTML
+	 *
 	 * @return string|void
 	 */
-	public function view_model( View_Model $view_model, bool $print = true ) {
-		/** @var View */
+	public function view_model( View_Model $view_model, bool $print_mode = true ) {
+		/**
+		 * Creates a new instance of the view.
+		 *
+		 * @var View
+		 */
 		$view = App::view();
 
-		return $view->view_model( $view_model, $print );
+		return $view->view_model( $view_model, $print_mode );
 	}
 
 	/**
@@ -223,5 +236,4 @@ class PinkCrab_BladeOne extends BladeOne {
 
 		return $this->phpTag . "elseif(PinkCrab\FunctionConstructors\Strings\isBlank(\$this->currentUser) || \$this->currentRole!=$role): ?>";
 	}
-
 }

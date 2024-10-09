@@ -1,7 +1,4 @@
-
-# Release Candidate 1.0.0-RC3
----
-
+![logo](./docs/Perique%20BladeOne%20Card.jpg "Perique BladeOne Engine")
 # BladeOne_Engine
 A BladeOne Engine for the PinkCrab Renderable Interface.
 

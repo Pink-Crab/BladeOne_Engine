@@ -18,6 +18,7 @@ use BadMethodCallException;
 use eftec\bladeone\BladeOne;
 use Gin0115\WPUnit_Helpers\Objects;
 use PinkCrab\BladeOne\BladeOne_Engine;
+use PinkCrab\BladeOne\PinkCrab_BladeOne;
 use PinkCrab\Perique\Services\View\View;
 use PinkCrab\BladeOne\Tests\Fixtures\Input;
 use PinkCrab\Perique\Services\View\View_Model;
@@ -239,6 +240,19 @@ class Test_BladeOne_Engine extends WP_UnitTestCase {
 
 		$provider->set_mode( BladeOne::MODE_SLOW );
 		$this->assertEquals( 1, $provider->get_blade()->getMode() );
+	}
+
+	/** @testdox It should be possible to set the comment mode blade uses when rendering */
+	public function test_set_comment_mode(): void {
+		$provider = $this->get_engine();
+		$provider->set_comment_mode( PinkCrab_BladeOne::COMMENT_PHP );
+		$this->assertEquals( 0, $provider->get_blade()->getCommentMode() );
+
+		$provider->set_comment_mode( PinkCrab_BladeOne::COMMENT_RAW );
+		$this->assertEquals( 1, $provider->get_blade()->getCommentMode() );
+
+		$provider->set_comment_mode( PinkCrab_BladeOne::COMMENT_NONE );
+		$this->assertEquals( 2, $provider->get_blade()->getCommentMode() );
 	}
 
 	/** @testdox It should be possible to share a value globally between al templates. */

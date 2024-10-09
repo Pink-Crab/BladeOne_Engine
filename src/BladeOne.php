@@ -41,7 +41,8 @@ class BladeOne implements Module {
 	private ?string $template_path = null;
 	private ?string $compiled_path = null;
 
-	private int $mode = PinkCrab_BladeOne::MODE_AUTO;
+	private int $mode         = PinkCrab_BladeOne::MODE_AUTO;
+	private int $comment_mode = PinkCrab_BladeOne::COMMENT_PHP;
 
 	/**
 	 * Holds the config closure.
@@ -80,6 +81,17 @@ class BladeOne implements Module {
 	 */
 	public function mode( int $mode ): self {
 		$this->mode = $mode;
+		return $this;
+	}
+
+	/**
+	 * Set the comment mode.
+	 *
+	 * @param integer $comment_mode
+	 * @return self
+	 */
+	public function comment_mode( int $comment_mode ): self {
+		$this->comment_mode = $comment_mode;
 		return $this;
 	}
 
@@ -125,7 +137,8 @@ class BladeOne implements Module {
 		$instance      = new PinkCrab_BladeOne(
 			$this->template_path ?? $config->path( 'view' ),
 			$compiled_path,
-			$this->mode
+			$this->mode,
+			$this->comment_mode
 		);
 
 		$instance->setAuth( ...$this->get_auth_data() );

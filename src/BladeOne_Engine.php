@@ -309,6 +309,17 @@ class BladeOne_Engine implements Renderable {
 	}
 
 	/**
+	 * Set the comment mode
+	 *
+	 * @param integer $comment_mode BladeOne::COMMENT_PHP, BladeOne::COMMENT_RAW, BladeOne::COMMENT_NONE
+	 * @return self
+	 */
+	public function set_comment_mode( int $comment_mode ): self {
+		static::$blade->setCommentMode( $comment_mode );
+		return $this;
+	}
+
+	/**
 	 * Adds a global variable. If <b>$var_name</b> is an array then it merges all the values.
 	 * <b>Example:</b>
 	 * <pre>

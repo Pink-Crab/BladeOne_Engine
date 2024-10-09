@@ -41,7 +41,9 @@ class Test_As_Application extends WP_UnitTestCase {
 		wp_set_current_user( 0 );
 	}
 
-	/** @testdox It should be possible to render a template using only its filename and pass values to the view to be rendered */
+	/**
+ * @testdox It should be possible to render a template using only its filename and pass values to the view to be rendered
+*/
 	public function test_render_template_using_only_file_name() {
 		$app = $this->pre_populated_app_provider();
 
@@ -49,13 +51,15 @@ class Test_As_Application extends WP_UnitTestCase {
 		$this->assertEquals( 'bar', $output );
 	}
 
-	/** @testdox It should be possible to set a custom template path when adding BladeOne as a module */
+	/**
+ * @testdox It should be possible to set a custom template path when adding BladeOne as a module
+*/
 	public function test_set_custom_template_path() {
 		$app = ( new App_Factory( \FIXTURES_PATH ) )
 			->default_setup()
 			->module(
 				BladeOne_Module::class,
-				function( BladeOne_Module $e ) {
+				function ( BladeOne_Module $e ) {
 					$e->template_path( \FIXTURES_PATH . 'views/custom-path' );
 					$e->compiled_path( \FIXTURES_PATH . 'cache' );
 					return $e;
@@ -68,13 +72,15 @@ class Test_As_Application extends WP_UnitTestCase {
 		$this->assertEquals( 'bar', $output );
 	}
 
-	/** @testdox It should be possible to configure the template and compiled paths, mode and access the BladeOne_Engine from the Modules config callback. */
+	/**
+ * @testdox It should be possible to configure the template and compiled paths, mode and access the BladeOne_Engine from the Modules config callback.
+*/
 	public function test_configure_bladeone_module() {
 
 		// Test the config action.
 		add_action(
 			PinkCrab_BladeOne::SETUP_CONFIG,
-			function( PinkCrab_BladeOne $blade_instance ) {
+			function ( PinkCrab_BladeOne $blade_instance ) {
 				$this->assertEquals( BladeOne::MODE_DEBUG, $blade_instance->getMode() );
 			}
 		);
@@ -83,15 +89,16 @@ class Test_As_Application extends WP_UnitTestCase {
 			->default_setup()
 			->module(
 				BladeOne_Module::class,
-				function( BladeOne_Module $e ) {
+				function ( BladeOne_Module $e ) {
 					$e->template_path( \FIXTURES_PATH . 'views/custom-path' );
 					$e->compiled_path( \FIXTURES_PATH . 'cache' );
 					$e->mode( BladeOne::MODE_DEBUG );
+					$e->comment_mode( PinkCrab_BladeOne::COMMENT_PHP );
 					$e->config(
-						function( BladeOne_Engine $engine ) {
+						function ( BladeOne_Engine $engine ) {
 							$engine->directive(
 								'bar',
-								function( $expression ) {
+								function ( $expression ) {
 									return "<?php echo 'barf'; ?>";
 								}
 							);
@@ -108,6 +115,7 @@ class Test_As_Application extends WP_UnitTestCase {
 
 		// Check mode is debug.
 		$this->assertEquals( BladeOne::MODE_DEBUG, $blade->getMode() );
+		$this->assertEquals( PinkCrab_BladeOne::COMMENT_PHP, $blade->getCommentMode() );
 
 		// Check the custom directive is added.
 		$this->assertEquals(
@@ -117,7 +125,7 @@ class Test_As_Application extends WP_UnitTestCase {
 
 		// Check that both paths are set.
 		$health_check = Output::buffer(
-			function() use ( $blade ) {
+			function () use ( $blade ) {
 				$result = $blade->checkHealthPath();
 				$this->assertTrue( $result );
 			}
@@ -127,7 +135,9 @@ class Test_As_Application extends WP_UnitTestCase {
 		$this->assertStringContainsString( \sprintf( 'Template-path (view) [%s] is a folder ', \FIXTURES_PATH . 'views/custom-path' ), $health_check );
 	}
 
-	/** @testdox It should be possible to define a compiled path and have it created if it doesnt exist. */
+	/**
+ * @testdox It should be possible to define a compiled path and have it created if it doesnt exist.
+*/
 	public function test_create_compiled_path_if_not_exists() {
 		$this->unset_app_instance();
 
@@ -137,7 +147,7 @@ class Test_As_Application extends WP_UnitTestCase {
 			->default_setup()
 			->module(
 				BladeOne_Module::class,
-				function( BladeOne_Module $e ) use ( $cached_path ) {
+				function ( BladeOne_Module $e ) use ( $cached_path ) {
 					return $e
 						->template_path( \FIXTURES_PATH . 'views/custom-path' )
 						->compiled_path( $cached_path );
@@ -149,7 +159,9 @@ class Test_As_Application extends WP_UnitTestCase {
 		$this->assertTrue( \file_exists( $cached_path ) );
 	}
 
-	/** @testdox It should be possible to render a component nested inside another component */
+	/**
+ * @testdox It should be possible to render a component nested inside another component
+*/
 	public function test_can_render_nested_component(): void {
 		$app = $this->pre_populated_app_provider();
 
@@ -161,7 +173,9 @@ class Test_As_Application extends WP_UnitTestCase {
 		);
 	}
 
-	/** @testdox It should be possible to render an nested view model using $this->view_model($instance) */
+	/**
+ * @testdox It should be possible to render an nested view model using $this->view_model($instance)
+*/
 	public function test_can_render_nested_view_model(): void {
 		$app = $this->pre_populated_app_provider();
 
@@ -170,14 +184,16 @@ class Test_As_Application extends WP_UnitTestCase {
 		$this->assertStringContainsString( 'woo', $value );
 	}
 
-	/** @testdox When a string is escaped, it should use the default WP esc_html */
+	/**
+ * @testdox When a string is escaped, it should use the default WP esc_html
+*/
 	public function test_can_escape_string(): void {
 		$app = $this->pre_populated_app_provider();
 
 		$called_esc_html = false;
 		add_filter(
 			'esc_html',
-			function( $value ) use ( &$called_esc_html ) {
+			function ( $value ) use ( &$called_esc_html ) {
 				$called_esc_html = true;
 				return $value;
 			}
@@ -187,14 +203,16 @@ class Test_As_Application extends WP_UnitTestCase {
 		$this->assertTrue( $called_esc_html );
 	}
 
-	/** @testdox It should be possible to set any function as the esc function */
+	/**
+ * @testdox It should be possible to set any function as the esc function
+*/
 	public function test_set_custom_esc_function(): void {
 		$app = $this->pre_populated_app_provider();
 
 		$called_esc_html = false;
 		add_filter(
 			'attribute_escape',
-			function( $value ) use ( &$called_esc_html ) {
+			function ( $value ) use ( &$called_esc_html ) {
 				$called_esc_html = true;
 				return $value;
 			}
@@ -205,7 +223,9 @@ class Test_As_Application extends WP_UnitTestCase {
 		$this->assertTrue( $called_esc_html );
 	}
 
-	/** @testdox It should be possible to render an nested view model using @viewModel($instance) */
+	/**
+ * @testdox It should be possible to render an nested view model using @viewModel($instance)
+*/
 	public function test_can_render_nested_view_model_directive(): void {
 		$app = $this->pre_populated_app_provider();
 
@@ -214,7 +234,9 @@ class Test_As_Application extends WP_UnitTestCase {
 		$this->assertStringContainsString( 'woo', $value );
 	}
 
-	/** @testdox It should be possible to render a component nested inside another component using @component($instance) */
+	/**
+ * @testdox It should be possible to render a component nested inside another component using @component($instance)
+*/
 	public function test_can_render_nested_component_using_directive(): void {
 		$app = $this->pre_populated_app_provider();
 
@@ -250,7 +272,9 @@ class Test_As_Application extends WP_UnitTestCase {
 		$this->assertEquals( $path, Objects::get_property( $blade, 'compiledPath' ) );
 	}
 
-	/** @testdox It should be possible to get the details of a logged in user */
+	/**
+ * @testdox It should be possible to get the details of a logged in user
+*/
 	public function test_can_get_user_details(): void {
 		$user = $this->factory()->user->create_and_get( array( 'role' => 'administrator' ) );
 		wp_set_current_user( $user->ID );
@@ -275,10 +299,11 @@ class Test_As_Application extends WP_UnitTestCase {
 		foreach ( $user->allcaps as $cap => $value ) {
 			$this->assertContains( $cap, $current_permissions );
 		}
-
 	}
 
-	/** @testdox When no user is logged in, this should be reflected in blades auth data. */
+	/**
+ * @testdox When no user is logged in, this should be reflected in blades auth data.
+*/
 	public function test_can_get_user_details_when_no_user_logged_in(): void {
 		wp_set_current_user( 0 );
 		$app = $this->pre_populated_app_provider();
@@ -297,7 +322,9 @@ class Test_As_Application extends WP_UnitTestCase {
 		$this->assertEmpty( $current_permissions );
 	}
 
-	/** @testdox It should be possible to use WP user roles to make some aspects of the template render logged in as administrator*/
+	/**
+ * @testdox It should be possible to use WP user roles to make some aspects of the template render logged in as administrator
+*/
 	public function test_user_auth_logged_in_rendered_admin(): void {
 		$user = $this->factory()->user->create_and_get( array( 'role' => 'administrator' ) );
 		wp_set_current_user( $user->ID );
@@ -318,7 +345,9 @@ class Test_As_Application extends WP_UnitTestCase {
 		$this->assertStringContainsString( 'can_manage_options', $output );
 	}
 
-	/** @testdox It should be possible to use WP user roles to make some aspects of the template render logged in as edior*/
+	/**
+ * @testdox It should be possible to use WP user roles to make some aspects of the template render logged in as edior
+*/
 	public function test_user_auth_logged_in_rendered_editor(): void {
 		$user = $this->factory()->user->create_and_get( array( 'role' => 'editor' ) );
 		wp_set_current_user( $user->ID );
@@ -339,7 +368,9 @@ class Test_As_Application extends WP_UnitTestCase {
 		$this->assertStringContainsString( 'can_edit_posts', $output );
 	}
 
-	/** @testdox It should be possible to use WP user roles to make some aspects of the template render */
+	/**
+ * @testdox It should be possible to use WP user roles to make some aspects of the template render
+*/
 	public function test_user_auth_logged_out_rendered(): void {
 		wp_set_current_user( 0 );
 
@@ -382,7 +413,9 @@ class Test_As_Application extends WP_UnitTestCase {
 		}
 	}
 
-	/** DataProvider for test_can_add_nonce_to_template */
+	/**
+ * DataProvider for test_can_add_nonce_to_template
+*/
 	public function nonce_provider(): array {
 		return array(
 			array( 'with_ref_nonce', 'with_referer', true ),
@@ -390,6 +423,4 @@ class Test_As_Application extends WP_UnitTestCase {
 			array( 'def_ref_nonce', '_pcnonce', true ),
 		);
 	}
-
-
 }

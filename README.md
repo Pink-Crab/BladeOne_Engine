@@ -103,7 +103,11 @@ $app = ( new App_Factory('path/to/project/root') )
          ->template_path('path/to/custom/views')
          ->compiled_path('path/to/custom/cache'); // Fluent API for chaining.
       
-      $blade->mode( BladeOne::MODE_DEBUG );
+      // Set the rendering mode.
+      $blade->mode(  PinkCrab_BladeOne::MODE_DEBUG );
+
+      // Set the comment mode.
+      $blade->comment_mode( PinkCrab_BladeOne::COMMENT_RAW );
 
       // BladeOne_Engine config.
       $blade->config( function( BladeOne_Engine $engine  {
@@ -132,7 +136,8 @@ $app = ( new App_Factory('path/to/project/root') )
    ->module(BladeOne::class, fn( BladeOne $blade ) => $blade
       ->template_path('path/to/custom/views')
       ->compiled_path('path/to/custom/cache')
-      ->mode( BladeOne::MODE_DEBUG )
+      ->mode(  PinkCrab_BladeOne::MODE_DEBUG )
+      ->comment_mode( PinkCrab_BladeOne::COMMENT_RAW )
       ->config( fn( BladeOne_Engine $engine ) => $engine
          ->set_compiled_extension('.php')
          ->directive('test', fn($e) =>'test')
@@ -166,6 +171,7 @@ You can call the following methods on the BladeOne Module to configure the Blade
 * [template_path](docs/BladeOne-Module.md#public-function-template_path-string-template_path-)
 * [compiled_path](docs/BladeOne-Module.md#public-function-compiled_path-string-compiled_path-)
 * [mode](docs/BladeOne-Module.md#public-function-mode-int-mode-)
+* [comment_mode](docs/BladeOne-Module.md#public-function-comment_mode-int-mode)
 * [config](docs/BladeOne-Module.md#public-function-configcallable-config)
 
 ## BladeOne_Engine Config
@@ -275,6 +281,7 @@ http://www.opensource.org/licenses/mit-license.html
 * For support of all versions before Perique V2, please use the [BladeOne_Provider](https://github.com/Pink-Crab/Perique-BladeOne-Provider)
 
 ## Change Log ##
+* 1.1.0 - Provides BladeOne 4.12+ and BladeOneHTML 2.4+. With comment mode support.
 * 1.0.1 - Last version to support pre 4.12 BladeOne (will be the last)
 * 1.0.0 - Migrated over from the Perique V2 Prep branch of BladeOne_Provider.
   * New Features

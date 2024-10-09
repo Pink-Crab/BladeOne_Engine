@@ -26,6 +26,7 @@ declare( strict_types=1 );
 
 namespace PinkCrab\BladeOne;
 
+use COM;
 use eftec\bladeone\BladeOne;
 use eftec\bladeonehtml\BladeOneHtml;
 use PinkCrab\Perique\Application\App;
@@ -41,6 +42,10 @@ class PinkCrab_BladeOne extends BladeOne {
 
 	public const SETUP_CONFIG = 'PinkCrab/BladeOne_Engine/Setup_Config';
 
+	public const COMMENT_PHP  = 0;
+	public const COMMENT_RAW  = 1;
+	public const COMMENT_NONE = 2;
+
 	/**
 	 * Bob the constructor.
 	 * The folder at $compiled_path is created in case it doesn't exist.
@@ -48,9 +53,10 @@ class PinkCrab_BladeOne extends BladeOne {
 	 * @param string|string[] $template_path If null then it uses (caller_folder)/views
 	 * @param string          $compiled_path If null then it uses (caller_folder)/compiles
 	 * @param integer         $mode          =[BladeOne::MODE_AUTO,BladeOne::MODE_DEBUG,BladeOne::MODE_FAST,BladeOne::MODE_SLOW][$i]
+	 * @param integer         $comment_mode  =[BladeOne::COMMENT_PHP,BladeOne::COMMENT_RAW,BladeOne::COMMENT_NONE][$i]
 	 */
-	public function __construct( $template_path = null, $compiled_path = null, $mode = 0 ) {
-		parent::__construct( $template_path, $compiled_path, $mode );
+	public function __construct( $template_path = null, $compiled_path = null, $mode = 0, $comment_mode = 0 ) {
+		parent::__construct( $template_path, $compiled_path, $mode, $comment_mode );
 
 		// Add the viewModel directive.
 		$this->directiveRT( 'viewModel', fn( $expression ) => $this->view_model( $expression, true ) );
@@ -87,7 +93,7 @@ class PinkCrab_BladeOne extends BladeOne {
 	 *
 	 * @var string
 	 */
-	protected $echoFormat = '\esc_html(%s)'; //phpcs:ignore WordPress.NamingConventions.ValidVariableName.PropertyNotSnakeCase
+	protected string $echoFormat = '\esc_html(%s)'; //phpcs:ignore WordPress.NamingConventions.ValidVariableName.PropertyNotSnakeCase
 
 
 	/**
@@ -235,5 +241,14 @@ class PinkCrab_BladeOne extends BladeOne {
 		}
 
 		return $this->phpTag . "elseif(PinkCrab\FunctionConstructors\Strings\isBlank(\$this->currentUser) || \$this->currentRole!=$role): ?>";
+	}
+
+	/**
+	 * Get the comment mode.
+	 *
+	 * @return integer
+	 */
+	public function getCommentMode(): int {
+		return $this->commentMode;
 	}
 }

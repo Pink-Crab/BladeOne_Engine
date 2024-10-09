@@ -275,6 +275,7 @@ http://www.opensource.org/licenses/mit-license.html
 * For support of all versions before Perique V2, please use the [BladeOne_Provider](https://github.com/Pink-Crab/Perique-BladeOne-Provider)
 
 ## Change Log ##
+* 1.0.1 - Last version to support pre 4.12 BladeOne (will be the last)
 * 1.0.0 - Migrated over from the Perique V2 Prep branch of BladeOne_Provider.
   * New Features
   * Auth and Permissions now hooked up and based on the current user.

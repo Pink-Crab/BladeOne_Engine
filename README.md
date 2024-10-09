@@ -103,7 +103,11 @@ $app = ( new App_Factory('path/to/project/root') )
          ->template_path('path/to/custom/views')
          ->compiled_path('path/to/custom/cache'); // Fluent API for chaining.
       
-      $blade->mode( BladeOne::MODE_DEBUG );
+      // Set the rendering mode.
+      $blade->mode(  PinkCrab_BladeOne::MODE_DEBUG );
+
+      // Set the comment mode.
+      $blade->comment_mode( PinkCrab_BladeOne::COMMENT_RAW );
 
       // BladeOne_Engine config.
       $blade->config( function( BladeOne_Engine $engine  {
@@ -132,7 +136,8 @@ $app = ( new App_Factory('path/to/project/root') )
    ->module(BladeOne::class, fn( BladeOne $blade ) => $blade
       ->template_path('path/to/custom/views')
       ->compiled_path('path/to/custom/cache')
-      ->mode( BladeOne::MODE_DEBUG )
+      ->mode(  PinkCrab_BladeOne::MODE_DEBUG )
+      ->comment_mode( PinkCrab_BladeOne::COMMENT_RAW )
       ->config( fn( BladeOne_Engine $engine ) => $engine
          ->set_compiled_extension('.php')
          ->directive('test', fn($e) =>'test')
@@ -166,6 +171,7 @@ You can call the following methods on the BladeOne Module to configure the Blade
 * [template_path](docs/BladeOne-Module.md#public-function-template_path-string-template_path-)
 * [compiled_path](docs/BladeOne-Module.md#public-function-compiled_path-string-compiled_path-)
 * [mode](docs/BladeOne-Module.md#public-function-mode-int-mode-)
+* [comment_mode](docs/BladeOne-Module.md#public-function-comment_mode-int-comment_mode-)
 * [config](docs/BladeOne-Module.md#public-function-configcallable-config)
 
 ## BladeOne_Engine Config

@@ -115,8 +115,10 @@ class BladeOne implements Module {
 
 		// If we dont have an instance of the WP_Filesystem, throw an exception.
 		if ( ! $wp_filesystem instanceof \WP_Filesystem_Base ) {
+			// @codeCoverageIgnoreStart
 			throw new \RuntimeException( 'Unable to create WP_Filesystem instance' );
-		}
+			// @codeCoverageIgnoreEnd
+		}	
 
 		$wp_upload_dir = wp_upload_dir();
 		$compiled_path = $this->compiled_path ?? sprintf( '%1$s%2$sblade-cache', $wp_upload_dir['basedir'], \DIRECTORY_SEPARATOR ); // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInImplementedInterfaceBeforeLastUsed

@@ -171,7 +171,7 @@ You can call the following methods on the BladeOne Module to configure the Blade
 * [template_path](docs/BladeOne-Module.md#public-function-template_path-string-template_path-)
 * [compiled_path](docs/BladeOne-Module.md#public-function-compiled_path-string-compiled_path-)
 * [mode](docs/BladeOne-Module.md#public-function-mode-int-mode-)
-* [comment_mode](docs/BladeOne-Module.md#public-function-comment_mode-int-comment_mode-)
+* [comment_mode](docs/BladeOne-Module.md#public-function-comment_mode-int-mode)
 * [config](docs/BladeOne-Module.md#public-function-configcallable-config)
 
 ## BladeOne_Engine Config

@@ -59,7 +59,7 @@ Allows the setting of the mode, this will be used for all templates run through 
 
 *****
 ### **public function comment_mode( int $mode)**
-> @param int $mode
+> @param int $mode  
 > @return self
 
 Allows the setting of the comment mode, this will be used for all templates run through BladeOne.

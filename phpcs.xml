@@ -19,12 +19,32 @@
 		<exclude name="WordPress.WP.AlternativeFunctions.curl_curl_close"/>
 		<exclude name="WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents"/>
 		<exclude name="WordPress.PHP.DisallowShortTernary.Found"/>
+
+		<!-- Exclude the PSR12 standard as we are using the WordPress standard. -->
+		<exclude name="PSR12.Files.FileHeader.IncorrectOrder" />
+		<exclude name="PSR12.Files.FileHeader.IncorrectGrouping" />
 	</rule>
 
 	<!-- Add in some extra rules from other standards. -->
 	<rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
 	<rule ref="Generic.Commenting.Todo"/>
+	
 
+	<!-- Check that class comments exists. -->
+	<rule ref="Squiz.Commenting.ClassComment">
+		<!-- Ignore the presence of tags such as @version and @since. -->
+		<exclude name="Squiz.Commenting.ClassComment.TagNotAllowed" />
+	</rule>
+
+	<!-- Ensure documentation blocks follow basic formatting like containing a short description and not mixing tag groups. -->
+	<rule ref="Generic.Commenting.DocComment">
+		<!-- Ignore indentation as it conflicts with our attempts to align across multiple tag blocks. -->
+		<exclude name="Generic.Commenting.DocComment.TagValueIndent" />
+		<!-- Ignore @param tags not being first since normally start with @since and @version tags. -->
+		<exclude name="Generic.Commenting.DocComment.ParamNotFirst" />
+		<!-- Ignore grouping of tags as we sometimes group tags for readability. -->
+		<exclude name="Generic.Commenting.DocComment.NonParamGroup" />
+	</rule>
 
 	<config name="minimum_supported_wp_version" value="4.9"/>
 

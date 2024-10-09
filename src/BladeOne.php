@@ -33,12 +33,21 @@ use PinkCrab\Perique\Interfaces\Renderable;
 use PinkCrab\Perique\Application\App_Config;
 use PinkCrab\Perique\Interfaces\DI_Container;
 
+/**
+ * BladeOne Module for Perique.
+ */
 class BladeOne implements Module {
 
 	private ?string $template_path = null;
 	private ?string $compiled_path = null;
-	private int $mode              = PinkCrab_BladeOne::MODE_AUTO;
-	/** @var ?\Closure(BladeOne_Engine):BladeOne_Engine */
+
+	private int $mode = PinkCrab_BladeOne::MODE_AUTO;
+
+	/**
+	 * Holds the config closure.
+	 *
+	 * @var ?\Closure(BladeOne_Engine):BladeOne_Engine
+	 */
 	private $config = null;
 
 	/**
@@ -66,7 +75,7 @@ class BladeOne implements Module {
 	/**
 	 * Set the mode.
 	 *
-	 * @param int $mode
+	 * @param integer $mode
 	 * @return self
 	 */
 	public function mode( int $mode ): self {
@@ -89,12 +98,25 @@ class BladeOne implements Module {
 	 * Creates the shared instance of the module and defines the
 	 * DI Rules to use the BladeOne_Engine.
 	 *
-	 * @pram App_Config $config
-	 * @pram Hook_Loader $loader
+	 * @pram App_Config   $config
+	 * @pram Hook_Loader  $loader
 	 * @pram DI_Container $di_container
 	 * @return void
 	 */
 	public function pre_boot( App_Config $config, Hook_Loader $loader, DI_Container $di_container ): void { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInImplementedInterfaceBeforeLastUsed
+		// @codeCoverageIgnoreStart
+		if ( ! function_exists( 'WP_Filesystem' ) ) {
+			// @phpstan-ignore-next-line
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+		}
+		// @codeCoverageIgnoreEnd
+		\WP_Filesystem();
+		global $wp_filesystem;
+
+		// If we dont have an instance of the WP_Filesystem, throw an exception.
+		if ( ! $wp_filesystem instanceof \WP_Filesystem_Base ) {
+			throw new \RuntimeException( 'Unable to create WP_Filesystem instance' );
+		}
 
 		$wp_upload_dir = wp_upload_dir();
 		$compiled_path = $this->compiled_path ?? sprintf( '%1$s%2$sblade-cache', $wp_upload_dir['basedir'], \DIRECTORY_SEPARATOR ); // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInImplementedInterfaceBeforeLastUsed
@@ -107,8 +129,10 @@ class BladeOne implements Module {
 		$instance->setAuth( ...$this->get_auth_data() );
 
 		// Create the compiled path if it does not exist.
-		if ( ! \file_exists( $compiled_path ) ) {
-			mkdir( $compiled_path );
+		if ( ! $wp_filesystem->exists( $compiled_path ) ) {
+
+			// Create the directory.
+			$wp_filesystem->mkdir( $compiled_path ); // phpcs:ignore WordPress.VIP.MkdirPermissions
 		}
 
 		$di_container->addRule(
@@ -141,7 +165,6 @@ class BladeOne implements Module {
 				'shared'        => true,
 			)
 		);
-
 	}
 
 	/**
@@ -153,6 +176,7 @@ class BladeOne implements Module {
 
 		// @codeCoverageIgnoreStart
 		if ( ! function_exists( 'wp_get_current_user' ) ) {
+			// @phpstan-ignore-next-line
 			require_once ABSPATH . 'wp-includes/pluggable.php';
 		}
 		// @codeCoverageIgnoreEnd
@@ -186,16 +210,27 @@ class BladeOne implements Module {
 		if ( ! is_null( $this->config ) ) {
 			\call_user_func( $this->config, $provider );
 		}
-
 	}
 
 	## Unused methods
 
 
-	/** @inheritDoc */
+	/**
+	 * Unused Mthod.
+	 *
+	 * @param App_Config   $config       The App_Config instance.
+	 * @param Hook_Loader  $loader       The Hook_Loader instance.
+	 * @param DI_Container $di_container The DI_Container instance.
+	 *
+	 * @return void
+	 */
 	public function post_register( App_Config $config, Hook_Loader $loader, DI_Container $di_container ): void {} // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInImplementedInterfaceBeforeLastUsed
 
-	/** @inheritDoc */
+	/**
+	 * Unused method.
+	 *
+	 * @return string|null
+	 */
 	public function get_middleware(): ?string {
 		return null;
 	}

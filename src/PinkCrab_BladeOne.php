@@ -50,10 +50,10 @@ class PinkCrab_BladeOne extends BladeOne {
 	 * Bob the constructor.
 	 * The folder at $compiled_path is created in case it doesn't exist.
 	 *
-	 * @param string|string[] $template_path If null then it uses (caller_folder)/views
-	 * @param string          $compiled_path If null then it uses (caller_folder)/compiles
-	 * @param integer         $mode          =[BladeOne::MODE_AUTO,BladeOne::MODE_DEBUG,BladeOne::MODE_FAST,BladeOne::MODE_SLOW][$i]
-	 * @param integer         $comment_mode  =[BladeOne::COMMENT_PHP,BladeOne::COMMENT_RAW,BladeOne::COMMENT_NONE][$i]
+	 * @param string  $template_path If null then it uses (caller_folder)/views
+	 * @param string  $compiled_path If null then it uses (caller_folder)/compiles
+	 * @param integer $mode          =[BladeOne::MODE_AUTO,BladeOne::MODE_DEBUG,BladeOne::MODE_FAST,BladeOne::MODE_SLOW][$i]
+	 * @param integer $comment_mode  =[BladeOne::COMMENT_PHP,BladeOne::COMMENT_RAW,BladeOne::COMMENT_NONE][$i]
 	 */
 	public function __construct( $template_path = null, $compiled_path = null, $mode = 0, $comment_mode = 0 ) {
 		parent::__construct( $template_path, $compiled_path, $mode, $comment_mode );

@@ -135,7 +135,7 @@ class BladeOne implements Module {
 		$wp_upload_dir = wp_upload_dir();
 		$compiled_path = $this->compiled_path ?? sprintf( '%1$s%2$sblade-cache', $wp_upload_dir['basedir'], \DIRECTORY_SEPARATOR ); // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInImplementedInterfaceBeforeLastUsed
 		$instance      = new PinkCrab_BladeOne(
-			$this->template_path ?? $config->path( 'view' ),
+			$this->template_path ?? $config->view_path(),
 			$compiled_path,
 			$this->mode,
 			$this->comment_mode

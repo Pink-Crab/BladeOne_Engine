@@ -66,9 +66,9 @@ class BladeOne_Engine implements Renderable {
 	/**
 	 * Static constructor with BladeOne initialisation details
 	 *
-	 * @param string|array<mixed> $template_path If null then it uses (caller_folder)/views
-	 * @param string              $compiled_path If null then it uses (caller_folder)/compiles
-	 * @param integer             $mode          =[BladeOne::MODE_AUTO,BladeOne::MODE_DEBUG,BladeOne::MODE_FAST,BladeOne::MODE_SLOW][$i]
+	 * @param string  $template_path If null then it uses (caller_folder)/views
+	 * @param string  $compiled_path If null then it uses (caller_folder)/compiles
+	 * @param integer $mode          =[BladeOne::MODE_AUTO,BladeOne::MODE_DEBUG,BladeOne::MODE_FAST,BladeOne::MODE_SLOW][$i]
 	 * @return self
 	 */
 	public static function init(
